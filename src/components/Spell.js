@@ -22,6 +22,7 @@ class Spell extends Component {
       
   render() {
     return (
+      <div>
         <header className="App-header">
         <h1 className="App-title">Welcome to Emoji App</h1>
         </header>
@@ -32,6 +33,7 @@ class Spell extends Component {
         emoji={this.state.emoji}
         gameplay={this.gameplay}
         remaining={this.state.remaining}/>
+        </div>
     );
   }
 }

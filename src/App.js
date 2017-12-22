@@ -102,7 +102,6 @@ class App extends Component {
       
       />
       {/* this below is the page from the ternary a few lines up */}
-      {/* also, this is apparently how you do jsx comments... fuckin weird. */}
       {page}
 
       </div>
@@ -111,3 +110,7 @@ class App extends Component {
 }
 
 export default App;
+
+
+
+
