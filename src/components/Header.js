@@ -6,15 +6,20 @@ class Header extends Component {
         //console.log('clickin')
         this.props.loginClick()
     }
+
+    logoutClick(){
+        this.props.logoutClick()
+    }
     
     render(){
+        let navItems
+        this.props.accessToken ?
+          navItems = <NavItem onClick={this.logoutClick.bind(this)} href="#">Logout</NavItem> 
+        : navItems = <NavItem onClick={this.loginClick.bind(this)} href="#">Login</NavItem>
         return (
-               
-            <NavItem onClick={this.loginClick.bind(this)} href="#">Login</NavItem>
-   
+            navItems
         )
     }
-
 }
 
 export default Header

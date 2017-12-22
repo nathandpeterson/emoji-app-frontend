@@ -5,9 +5,16 @@ import Auth0Lock from 'auth0-lock'
 import {Button} from 'react-materialize'
 import Header from './components/Header.js'
 import Landing from './components/Landing'
+import Dash from './components/Dash'
 
 class App extends Component {
-
+  constructor(){
+    super()
+    this.state = {
+      accessToken: '',
+      profile: {}
+    }
+  }
 
   static defaultProps = {
     clientId: 'oZl3hH2eA3ohIHz62cQqNgCh9DQUzrSq',
@@ -67,10 +74,22 @@ class App extends Component {
   }
 
   render() {
+    let page
+    //check to see if there's a token / someone is logged in
+    this.state.accessToken ? page = <Dash /> : page = <Landing />
+
     return (
       <div className="App">
-      <Header loginClick={this.showModal.bind(this)}/>
-      <Landing />
+      <Header 
+      lock={this.lock}
+      accessToken={this.state.accessToken}
+      profile={this.state.profile}
+      loginClick={this.showModal.bind(this)}
+      
+      />
+      {/* this below is the page from the ternary a few lines up */}
+      {/* also, this is apparently how you do jsx comments... fuckin weird. */}
+      {page}
 
       </div>
     );
