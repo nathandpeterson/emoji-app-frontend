@@ -93,6 +93,7 @@ class App extends Component {
 
     return (
       <div className="App">
+      {/* header is essentially the nav, it doesn't actually have to be a header, . . . .*/}
       <Header 
       lock={this.lock}
       accessToken={this.state.accessToken}
@@ -101,7 +102,7 @@ class App extends Component {
       loginClick={this.showModal.bind(this)}
       
       />
-      {/* this below is the page from the ternary a few lines up */}
+      {/* this below is the page from the ternary below render */}
       {page}
 
       </div>
