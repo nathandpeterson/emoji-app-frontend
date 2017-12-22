@@ -69,8 +69,21 @@ class App extends Component {
     }
   }
 
+  //auth0 modal
   showModal(){
     this.lock.show()
+  }
+
+  //delete token in state and local storage 
+  logout(){
+    this.setState({
+      accessToken: '',
+      profile: ''
+    }, () => {
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('profile')
+    })
+    
   }
 
   render() {
@@ -84,6 +97,7 @@ class App extends Component {
       lock={this.lock}
       accessToken={this.state.accessToken}
       profile={this.state.profile}
+      logoutClick={this.logout.bind(this)}
       loginClick={this.showModal.bind(this)}
       
       />
