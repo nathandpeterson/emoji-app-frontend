@@ -50,6 +50,30 @@ class App extends Component {
       })
     
     })
+
+    this.getData()
+  }
+
+  //function for setting token and profile data
+  setData(accessToken, profile){
+    localStorage.setItem('accessToken', accessToken)
+    localStorage.setItem('profile', JSON.stringify(profile))
+    this.setState({
+      accessToken: localStorage.getItem('accessToken'),
+      profile: JSON.parse(localStorage.getItem('profile'))
+    })
+  }
+
+  //token check and grab profile
+  getData(){
+    if(localStorage.getItem('accessToken') != null){
+      this.setState({
+        accessToken: localStorage.getItem('accessToken'),
+        profile: JSON.parse(localStorage.getItem('profile'))
+      }, ()=>{
+        console.log(this.state)
+      })
+    }
   }
 
   showModal(){
