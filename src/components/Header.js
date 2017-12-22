@@ -9,7 +9,7 @@ class Header extends Component {
     
     render(){
         return (
-       
+               
             <NavItem onClick={this.loginClick.bind(this)} href="#">Login</NavItem>
    
         )
