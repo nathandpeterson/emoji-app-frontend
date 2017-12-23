@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Spell from './Spell'
+import Emoji from './Emoji'
 import {Card, CardTitle} from 'react-materialize'
 
 class Dash extends Component {
@@ -16,6 +17,7 @@ class Dash extends Component {
     <h3>{this.props.profile.nickname}</h3>
   </Card>
     <Spell />
+    <Emoji />
     </div>
     
    
