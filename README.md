@@ -1,6 +1,6 @@
 ## Current situation:
 
-Rudimentaru gameplay for emojis in master branch. </br>
+Rudimentary gameplay for emojis in master branch. </br>
 Rudimentary gameplay for stories in story branch.
 
 ![sketch](IMG_20171221_173023.jpg)
