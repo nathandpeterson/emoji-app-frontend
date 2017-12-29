@@ -12,10 +12,10 @@ class Emoji extends Component {
           .then(results => {
               return results.json()
           }).then(data =>{
-              let emojis = data.results.map((emoji)=>{
+              let emojis = data.results.map((emoji, id)=>{
                   return(
-                      <div key={emoji.results}>
-                      <div>{emoji.symbol}</div>
+                      <div key={id}>
+                      {emoji.symbol}
                       </div>
                   )
               })
@@ -26,7 +26,6 @@ class Emoji extends Component {
 
       render(){
           return (
-
             <div>
                 {this.state.emojis}
             </div>

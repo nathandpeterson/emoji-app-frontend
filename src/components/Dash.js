@@ -1,12 +1,35 @@
 import React, { Component } from 'react'
 import Spell from './Spell'
 import Emoji from './Emoji'
-import {Card, CardTitle} from 'react-materialize'
+import {Card, CardTitle, Button} from 'react-materialize'
 
 class Dash extends Component {
+  constructor(){
+    super()
+    this.state = {quiz: false, emoji: false}
+  }
+  renderQuiz = () => {
+    //this method checks state to see if quiz has been clicked, renders it if so
+    // the quiz should fade in instead of just blinking into existence
+    this.state.quiz ? this.setState({quiz:false}) : this.setState({quiz: true})
+  }
+  renderEmoji = () => {
+    //this method checks state to see if emoji has been clicked, renders it if so
+     // the emojis should fade in/dropdown instead of just blinking into existence
+    this.state.emoji ? this.setState({emoji:false}) : this.setState({emoji: true})
+  }
+  renderStories = () => {
+    //this doesn't do anything yet...
+    console.log('load stories component')
+  }
   render() {
     return (
       <div>
+        <Button onClick={this.renderEmoji}>MY EMOJI</Button>
+        <Button onClick={this.renderQuiz}>QUIZ</Button>
+        <Button onClick={this.renderStories}>STORIES</Button>
+        {this.state.emoji && <Emoji />}
+        {this.state.quiz && <Spell />}
     <h1>where you want me go?</h1>
     <h2>and link to below</h2>
     <p>dashboard will contain link to 'quiz' page and potentially stories?</p>
@@ -15,13 +38,9 @@ class Dash extends Component {
     header={<CardTitle image={this.props.profile.picture}>Profile</CardTitle>}
     actions={[<a href='#'>This is a Link</a>]}>
     <h3>{this.props.profile.nickname}</h3>
-  </Card>
-    <Spell />
-    <Emoji />
+    </Card>
     </div>
-    
-   
-    );
+    )
   }
 }
 

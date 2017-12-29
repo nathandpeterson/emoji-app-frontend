@@ -111,7 +111,11 @@ class App extends Component {
             profile={this.state.profile}
             /> : 
       <Landing loginClick={this.showModal}
-                lock={this.lock}/> }
+                lock={this.lock}
+                accessToken={this.state.accessToken}
+                profile={this.state.profile}
+                />
+      }
       </div>
     );
   }

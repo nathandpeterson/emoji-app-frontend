@@ -23,12 +23,10 @@ class Spell extends Component {
   render() {
     return (
       <div>
-        <header className="App-header">
-        <h1 className="App-title">Welcome to Emoji App</h1>
-        </header>
-        <div className="container">
-        {this.state.emoji.symbol}
+        <div className="emoji-container">
+          <span className="emoji-med" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.symbol}</span>
         </div>
+  
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}
