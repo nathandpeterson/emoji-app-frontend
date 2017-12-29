@@ -23,9 +23,8 @@ class App extends Component {
 
   componentWillMount(){
     this.lock = new Auth0Lock(this.props.clientId, this.props.domain)
-
     this.lock.on('authenticated', (authResult)=>{
-      console.log(authResult)
+      console.log(authResult, 'authResult')
       this.lock.getUserInfo(authResult.accessToken, (error, profile)=>{
         
         if(error) {
