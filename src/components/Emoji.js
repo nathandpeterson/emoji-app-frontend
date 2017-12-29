@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 
 class Emoji extends Component {
@@ -8,7 +7,6 @@ class Emoji extends Component {
             emojis: []
         }
       }
-
       componentDidMount(){
           fetch('http://localhost:3030/api/emoji')
           .then(results => {

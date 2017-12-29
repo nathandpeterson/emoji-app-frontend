@@ -36,11 +36,8 @@ class App extends Component {
         //log in -  return id from db
         //store id in local storage
         console.log(profile)
-
-        this.setData(authResult.accessToken, profile)
-        
+        this.setData(authResult.accessToken, profile) 
       })
-    
     })
 
     this.getData()
@@ -86,15 +83,15 @@ class App extends Component {
   }
 
   render() {
-    let page
-    //check to see if there's a token / someone is logged in
-    this.state.accessToken ? 
-    page = <Dash 
-            lock={this.lock}
-            accessToken={this.state.accessToken}
-            profile={this.state.profile}
-            /> : 
-    page = <Landing />
+    // let page
+    // //check to see if there's a token / someone is logged in
+    // this.state.accessToken ? 
+    // page=  <Dash 
+    //         lock={this.lock}
+    //         accessToken={this.state.accessToken}
+    //         profile={this.state.profile}
+    //         /> : 
+    //         page = <Landing />
 
     return (
       <div className="App">
@@ -105,11 +102,16 @@ class App extends Component {
       profile={this.state.profile}
       logoutClick={this.logout.bind(this)}
       loginClick={this.showModal.bind(this)}
-      
       />
       {/* this below is the page from the ternary below render */}
-      {page}
-
+     
+      {this.state.accessToken ? <Dash 
+            lock={this.lock}
+            accessToken={this.state.accessToken}
+            profile={this.state.profile}
+            /> : 
+      <Landing loginClick={this.showModal}
+                lock={this.lock}/> }
       </div>
     );
   }

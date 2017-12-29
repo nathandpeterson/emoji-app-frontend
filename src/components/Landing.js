@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import {Button, Row, Col, Collection, CollectionItem} from 'react-materialize'
-import Transition from 'react-transition-group/Transition'
-
-const styles = {
-  transition: 'all 1s ease-in'
-}
 
 class Landing extends Component {
-
+  constructor(props){
+    super(props)
+  }
+  startButton = () => {
+    this.props.loginClick()
+  }
   render() {
     return (
     <div className='landing'>
@@ -36,9 +36,9 @@ class Landing extends Component {
       </Col>
       <Col s={4}>
         <Collection>
-         <CollectionItem className="name-card">WORD RUMPUS</CollectionItem>
+         <CollectionItem active className="name-card">WORD RUMPUS</CollectionItem>
         </Collection>
-       <Button className="landing-button animated bounce">Play</Button>
+       <Button onClick={(e) => this.startButton()} className="landing-button animated tada">Play</Button>
       </Col>
       <Col s={4}>
         <div className="emoji-container">
