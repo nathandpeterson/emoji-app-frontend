@@ -4,32 +4,27 @@ class Emoji extends Component {
     constructor(){
         super()
         this.state = {
-            emojis: []
+            allEmojis: []
         }
       }
-      componentDidMount(){
-          fetch('http://localhost:3030/api/emoji')
-          .then(results => {
-              return results.json()
-          }).then(data =>{
-              let emojis = data.results.map((emoji, id)=>{
-                  return(
-                      <div key={id}>
-                      {emoji.symbol}
-                      </div>
-                  )
-              })
-              this.setState({emojis})
-              console.log("state", this.state.emojis)
-          })
+      getAllEmoji = async () => {
+        let results = await fetch('http://localhost:3030/api/emoji')
+        let json = await results.json()
+        return json
+      }
+      componentDidMount = async () => {
+        const allEmojis = await this.getAllEmoji()
+        console.log(allEmojis.results)
+        this.setState({allEmojis: [...allEmojis.results]})
       }
 
       render(){
           return (
             <div>
-                {this.state.emojis}
+                {this.state.allEmojis.map(emoji => {
+                   return emoji.image
+                })}
             </div>
-            
           )
       }
 
