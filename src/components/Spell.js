@@ -26,7 +26,6 @@ class Spell extends Component {
         <div className="emoji-container">
           <span className="emoji-med" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.symbol}</span>
         </div>
-  
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}

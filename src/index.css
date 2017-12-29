@@ -10,6 +10,11 @@ body {
   padding: 1rem;
 }
 
+.emoji-small {
+  font-size: 2.5rem;
+  padding: 1rem;
+}
+
 .name-card {
   font-family: "Indie Flower", sans-serif;
   font-size: 2rem;

@@ -14,21 +14,20 @@ class Emoji extends Component {
       }
       componentDidMount = async () => {
         const allEmojis = await this.getAllEmoji()
-        console.log(allEmojis.results)
         this.setState({allEmojis: [...allEmojis.results]})
       }
 
       render(){
           return (
             <div>
-                {this.state.allEmojis.map(emoji => {
-                   return emoji.image
+                {this.state.allEmojis.map((emoji,id) => {
+                   return (<span key={id} className="emoji-container">
+                   <span className="emoji-small" role="img" aria-label={emoji.name}>{emoji.image}</span>
+                  </span>)
                 })}
             </div>
           )
       }
-
-
 }
 
 export default Emoji
