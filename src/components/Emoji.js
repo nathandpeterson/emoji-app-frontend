@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import FadeIn from 'react-fade-in'
 
 class Emoji extends Component {
     constructor(){
@@ -22,9 +22,10 @@ class Emoji extends Component {
           return (
             <div>
                 {this.state.allEmojis.map((emoji,id) => {
-                   return (<span key={id} className="emoji-container">
+                   return ( <span key={id} className="emoji-container">
                    <span className="emoji-small" role="img" aria-label={emoji.name}>{emoji.image}</span>
-                  </span>)
+                  </span>
+                  )
                 })}
             </div>
           )

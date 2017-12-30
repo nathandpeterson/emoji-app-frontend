@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import Keyboard from './Keyboard'
 import FadeIn from 'react-fade-in'
+import {Button} from 'react-materialize'
 
 class Quiz extends Component {
     constructor(props){
@@ -9,16 +10,18 @@ class Quiz extends Component {
         this.state = {
           allEmoji: [],
           userCollection: [],
+          currentGame: {
+            currentEmoji: {},
+            nextEmoji: {},
+            letters: null,
+            currentWord: ''
+          },
           emoji: {id: 18, name: 'cow', symbol: '🐮', level: 1},
-          guesses: 3,
+          letters: 3,
           remaining: 'cow'
         }
       }
-  getAllEmoji = async () => {
-    let results = await fetch('http://localhost:3030/api/emoji')
-    let json = await results.json()
-    return json.results
-  }
+  
 
   filterEmoji = () => {
     //Filters all emojis against emojis in the user's collection by emoji ID
@@ -28,24 +31,38 @@ class Quiz extends Component {
     return filteredEmoji
   }
 
-  getUserEmoji = async () => {
-    //I've hard-coded a userID, but we should pull the userID from token/state
-    let results = await fetch(`http://localhost:3030/api/emoji/1`)
-    let json = await results.json()
-    return json.results
+  randomEmoji = () => {
+    // Picks a random emoji not in the current player's collection
+    let filteredEmoji = this.filterEmoji()
+    let randomIndex = Math.floor(Math.random()*filteredEmoji.length)
+    return filteredEmoji[randomIndex]
   }
 
   componentDidMount = async () => {
-    let allEmoji = await this.getAllEmoji()
-    let userCollection = await this.getUserEmoji()
-    this.setState({allEmoji, userCollection})
+    let allEmoji = await this.props.getAllEmoji()
+    let userCollection = await this.props.getUserEmoji()
+    this.setState({ allEmoji, userCollection})
+  }
+
+  setRandomAndNextEmoji = () => {
+    //This method doesn't work because filteredEmoji is not available in this scope
+    let current = this.randomEmoji()
+    let next = this.randomEmoji()
+    // Check to see if the next emoji is the same as the current. If 
+    if(this.state.filteredEmoji.length === 1) {
+      next = null
+     } else {
+      while(next.id === current.id) next = this.randomEmoji()
+     } 
+     console.log(current, next)
+    //  this.setState({currentGame :{currentEmoji: current, nextEmoji: next}})
   }
     
   gameplay = () => {
     let situation = Object.assign({}, this.state)
-    situation.guesses--
+    situation.letters--
     situation.remaining = situation.remaining.slice(1)
-    if(situation.guesses === 0) console.log("You got it!")
+    if(situation.letters === 0) console.log("You got it!")
     this.setState(situation)
   }
       
@@ -56,6 +73,7 @@ class Quiz extends Component {
           <div className="emoji-container">
             <span className="emoji-med" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.symbol}</span>
           </div>
+          <Button onClick={this.setRandomAndNextEmoji}> RANDOM </Button>
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}

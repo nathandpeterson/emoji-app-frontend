@@ -11,17 +11,30 @@ class Dash extends Component {
   }
   renderQuiz = () => {
     //this method checks state to see if quiz has been clicked, renders it if so
-    // the quiz should fade in instead of just blinking into existence
     this.state.quiz ? this.setState({quiz:false}) : this.setState({quiz: true})
   }
   renderEmoji = () => {
-    //this method checks state to see if emoji has been clicked, renders it if so
+    //this method checks state to see if MY EMOJI btn has been clicked, renders it if so
     this.state.emoji ? this.setState({emoji:false}) : this.setState({emoji: true})
   }
   renderStories = () => {
     //this doesn't do anything yet...
     console.log('load stories component')
   }
+  getAllEmoji = async () => {
+    //Grabs all emoji from server/db
+    let results = await fetch('http://localhost:3030/api/emoji')
+    let json = await results.json()
+    return json.results
+  }
+
+  getUserEmoji = async () => {
+    //I've hard-coded a userID, but we should pull the userID from token/state/profile
+    let results = await fetch(`http://localhost:3030/api/emoji/1`)
+    let json = await results.json()
+    return json.results
+  }
+
   render() {
     return (
       <div>
@@ -29,7 +42,9 @@ class Dash extends Component {
         <Button onClick={this.renderQuiz}>QUIZ</Button>
         <Button onClick={this.renderStories}>STORIES</Button>
         {this.state.emoji && <FadeIn><Emoji /></FadeIn>}
-        {this.state.quiz && <Quiz />}
+        {this.state.quiz && <Quiz getAllEmoji={this.getAllEmoji}
+                                  getUserEmoji={this.getUserEmoji}
+          />}
     <h1>where you want me go?</h1>
     <h2>and link to below</h2>
     <p>dashboard will contain link to 'quiz' page and potentially stories?</p>
