@@ -83,16 +83,7 @@ class App extends Component {
   }
 
   render() {
-    // let page
-    // //check to see if there's a token / someone is logged in
-    // this.state.accessToken ? 
-    // page=  <Dash 
-    //         lock={this.lock}
-    //         accessToken={this.state.accessToken}
-    //         profile={this.state.profile}
-    //         /> : 
-    //         page = <Landing />
-
+    
     return (
       <div className="App">
       {/* header is essentially the nav, it doesn't actually have to be a header, . . . .*/}

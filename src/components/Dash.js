@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import Spell from './Spell'
+import Quiz from './Quiz'
 import Emoji from './Emoji'
 import {Card, CardTitle, Button} from 'react-materialize'
+import FadeIn from 'react-fade-in'
 
 class Dash extends Component {
   constructor(){
@@ -15,7 +16,6 @@ class Dash extends Component {
   }
   renderEmoji = () => {
     //this method checks state to see if emoji has been clicked, renders it if so
-     // the emojis should fade in/dropdown instead of just blinking into existence
     this.state.emoji ? this.setState({emoji:false}) : this.setState({emoji: true})
   }
   renderStories = () => {
@@ -28,8 +28,8 @@ class Dash extends Component {
         <Button onClick={this.renderEmoji}>MY EMOJI</Button>
         <Button onClick={this.renderQuiz}>QUIZ</Button>
         <Button onClick={this.renderStories}>STORIES</Button>
-        {this.state.emoji && <Emoji />}
-        {this.state.quiz && <Spell />}
+        {this.state.emoji && <FadeIn><Emoji /></FadeIn>}
+        {this.state.quiz && <Quiz />}
     <h1>where you want me go?</h1>
     <h2>and link to below</h2>
     <p>dashboard will contain link to 'quiz' page and potentially stories?</p>

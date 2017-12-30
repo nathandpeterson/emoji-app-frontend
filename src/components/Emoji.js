@@ -16,7 +16,7 @@ class Emoji extends Component {
         const allEmojis = await this.getAllEmoji()
         this.setState({allEmojis: [...allEmojis.results]})
       }
-
+      
       render(){
           return (
             <div>
