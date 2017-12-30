@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+
 class Emoji extends Component {
     constructor(){
         super()
@@ -8,6 +9,7 @@ class Emoji extends Component {
         }
       }
       getAllEmoji = async () => {
+        //This method should filter and only pull the current user's emoji
         let results = await fetch('http://localhost:3030/api/emoji')
         let json = await results.json()
         return json
@@ -16,7 +18,6 @@ class Emoji extends Component {
         const allEmojis = await this.getAllEmoji()
         this.setState({allEmojis: [...allEmojis.results]})
       }
-      
       render(){
           return (
             <div>

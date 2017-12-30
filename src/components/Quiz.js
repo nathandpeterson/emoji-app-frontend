@@ -20,6 +20,14 @@ class Quiz extends Component {
     return json.results
   }
 
+  filterEmoji = () => {
+    //Filters all emojis against emojis in the user's collection by emoji ID
+    // Returns only uncollected emojis
+    const userCollection = this.state.userCollection
+    const filteredEmoji = this.state.allEmoji.filter(emoji => !userCollection.includes(emoji.id))
+    return filteredEmoji
+  }
+
   getUserEmoji = async () => {
     //I've hard-coded a userID, but we should pull the userID from token/state
     let results = await fetch(`http://localhost:3030/api/emoji/1`)
@@ -59,12 +67,3 @@ class Quiz extends Component {
 }
 
 export default Quiz
-
-
-
-
-
-
-
-
-
