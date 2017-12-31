@@ -8,8 +8,8 @@ class Quiz extends Component {
     constructor(props){
         super(props)
         this.state = {
-          allEmoji: [],
-          userCollection: [],
+          allEmoji: this.props.allEmoji,
+          userCollection: this.props.userCollection,
           currentGame: {
             currentEmoji: {},
             nextEmoji: {},
@@ -21,19 +21,10 @@ class Quiz extends Component {
           remaining: 'cow'
         }
       }
-  
-
-  filterEmoji = () => {
-    //Filters all emojis against emojis in the user's collection by emoji ID
-    // Returns only uncollected emojis
-    const userCollection = this.state.userCollection
-    const filteredEmoji = this.state.allEmoji.filter(emoji => !userCollection.includes(emoji.id))
-    return filteredEmoji
-  }
 
   randomEmoji = () => {
     // Picks a random emoji not in the current player's collection
-    let filteredEmoji = this.filterEmoji()
+    let filteredEmoji = this.props.filterEmoji()
     let randomIndex = Math.floor(Math.random()*filteredEmoji.length)
     return filteredEmoji[randomIndex]
   }
@@ -44,17 +35,11 @@ class Quiz extends Component {
     this.setState({ allEmoji, userCollection})
   }
 
-  setRandomAndNextEmoji = () => {
+  startGame = () => {
     //This method doesn't work because filteredEmoji is not available in this scope
     let current = this.randomEmoji()
-    let next = this.randomEmoji()
+    console.log(current, this.state)
     // Check to see if the next emoji is the same as the current. If 
-    if(this.state.filteredEmoji.length === 1) {
-      next = null
-     } else {
-      while(next.id === current.id) next = this.randomEmoji()
-     } 
-     console.log(current, next)
     //  this.setState({currentGame :{currentEmoji: current, nextEmoji: next}})
   }
     
@@ -67,13 +52,16 @@ class Quiz extends Component {
   }
       
   render() {
+    console.log(this.props)
     return (
       <FadeIn>
          <div>
-          <div className="emoji-container">
-            <span className="emoji-med" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.symbol}</span>
+          <div className="game-container">
+            <span className="emoji-lg" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.symbol}</span>
+            <span className="quiz-letters">COW</span>
           </div>
-          <Button onClick={this.setRandomAndNextEmoji}> RANDOM </Button>
+          
+          <Button onClick={this.startGame}> RANDOM </Button>
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}

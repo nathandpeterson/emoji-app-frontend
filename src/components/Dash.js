@@ -7,7 +7,11 @@ import FadeIn from 'react-fade-in'
 class Dash extends Component {
   constructor(){
     super()
-    this.state = {quiz: false, emoji: false}
+    this.state = {quiz: false, 
+                  emoji: false, 
+                  allEmoji: [],
+                  userCollection: []
+                }
   }
   renderQuiz = () => {
     //this method checks state to see if quiz has been clicked, renders it if so
@@ -20,6 +24,7 @@ class Dash extends Component {
   renderStories = () => {
     //this doesn't do anything yet...
     console.log('load stories component')
+    console.log(this.state)
   }
   getAllEmoji = async () => {
     //Grabs all emoji from server/db
@@ -35,6 +40,20 @@ class Dash extends Component {
     return json.results
   }
 
+  filterEmoji = () => {
+    // Filters all emojis against emojis in the user's collection by emoji ID
+    // Returns only uncollected emojis
+    const userCollection = this.state.userCollection
+    const filteredEmoji = this.state.allEmoji.filter(emoji => !userCollection.includes(emoji.id))
+    return filteredEmoji
+  }
+
+  componentDidMount = async () => {
+    const allEmoji = await this.getAllEmoji()
+    const userCollection = await this.getUserEmoji()
+    this.setState({allEmoji, userCollection})
+  }
+
   render() {
     return (
       <div>
@@ -44,6 +63,9 @@ class Dash extends Component {
         {this.state.emoji && <FadeIn><Emoji /></FadeIn>}
         {this.state.quiz && <Quiz getAllEmoji={this.getAllEmoji}
                                   getUserEmoji={this.getUserEmoji}
+                                  filterEmoji={this.filterEmoji}
+                                  allEmoji={ this.state.allEmoji }
+                                  userCollection ={ this.state.userCollection }
           />}
     <h1>where you want me go?</h1>
     <h2>and link to below</h2>

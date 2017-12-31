@@ -5,6 +5,11 @@ body {
   color: #e91e63;
 }
 
+.emoji-lg {
+  font-size: 10rem;
+  margin: 0;
+}
+
 .emoji-med {
   font-size: 7.5rem;
   padding: 1rem;
@@ -23,4 +28,17 @@ body {
 .emoji-container:hover {
   -webkit-animation: bounce 1s;
   animation: bounce 1s;
+}
+
+
+.game-container:hover {
+  -webkit-animation: bounce 1s;
+  animation: bounce 1s;
+  padding: 0;
+}
+
+.quiz-letters {
+  font-size: 5rem;
+  background: white;
+  border-radius: 2px;
 }

@@ -5,7 +5,7 @@ class Emoji extends Component {
     constructor(){
         super()
         this.state = {
-            allEmojis: []
+            allEmoji: []
         }
       }
       getAllEmoji = async () => {
@@ -15,13 +15,13 @@ class Emoji extends Component {
         return json
       }
       componentDidMount = async () => {
-        const allEmojis = await this.getAllEmoji()
-        this.setState({allEmojis: [...allEmojis.results]})
+        const allEmoji = await this.getAllEmoji()
+        this.setState({allEmoji: [...allEmoji.results]})
       }
       render(){
           return (
             <div>
-                {this.state.allEmojis.map((emoji,id) => {
+                {this.state.allEmoji.map((emoji,id) => {
                    return ( <span key={id} className="emoji-container">
                    <span className="emoji-small" role="img" aria-label={emoji.name}>{emoji.image}</span>
                   </span>
