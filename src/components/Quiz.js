@@ -11,12 +11,11 @@ class Quiz extends Component {
           allEmoji: this.props.allEmoji,
           userCollection: this.props.userCollection,
           currentGame: {
-            currentEmoji: {},
-            nextEmoji: {},
-            letters: null,
+            currentEmoji: [],
+            letters: '',
             currentWord: ''
           },
-          emoji: {id: 18, name: 'cow', symbol: '🐮', level: 1},
+          emoji: {id: 18, name: 'cow', image: '🐮', level: 1},
           letters: 3,
           remaining: 'cow'
         }
@@ -36,19 +35,33 @@ class Quiz extends Component {
   }
 
   startGame = () => {
-    //This method doesn't work because filteredEmoji is not available in this scope
     let current = this.randomEmoji()
     console.log(current, this.state)
+    this.setState({currentGame:{currentEmoji: current.image, letter: '', currentWord: current.name,}})
     // Check to see if the next emoji is the same as the current. If 
     //  this.setState({currentGame :{currentEmoji: current, nextEmoji: next}})
   }
     
   gameplay = () => {
     let situation = Object.assign({}, this.state)
+    console.log('sitttttuation',situation)
     situation.letters--
     situation.remaining = situation.remaining.slice(1)
     if(situation.letters === 0) console.log("You got it!")
     this.setState(situation)
+    this.setState({currentGame:{letters: situation.letters}})
+  }
+  resetEmoji = () => {
+    //Resets to a random emoji not in the current player's collection
+    let currentEmoji = this.randomEmoji()
+    this.setState({emoji: {id: currentEmoji.id, 
+                          name: currentEmoji.name, 
+                          image: currentEmoji.image, 
+                          level: currentEmoji.level}})
+  }
+
+  componentDidMount = async () => {
+    this.resetEmoji()
   }
       
   render() {
@@ -57,8 +70,8 @@ class Quiz extends Component {
       <FadeIn>
          <div>
           <div className="game-container">
-            <span className="emoji-lg" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.symbol}</span>
-            <span className="quiz-letters">COW</span>
+            <span className="emoji-lg" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.image}</span>
+            <span className="quiz-letters">{this.state.currentGame.letters}</span>
           </div>
           
           <Button onClick={this.startGame}> RANDOM </Button>

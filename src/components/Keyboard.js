@@ -18,7 +18,7 @@ const Keyboard = ({emoji, gameplay, remaining}) => {
           remaining={remaining}/>)}
       </div>
     </div>
-  );
+  )
 }
 
 export default Keyboard;
