@@ -43,6 +43,7 @@ class Quiz extends Component {
   }
     
   gameplay = () => {
+    console.log(this.state)
     let situation = Object.assign({}, this.state)
     console.log('sitttttuation',situation)
     situation.letters--
@@ -78,7 +79,7 @@ class Quiz extends Component {
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}
-        remaining={this.state.remaining}/>
+        remaining={this.state.emoji.name}/>
         </div>
         </FadeIn>
     );
