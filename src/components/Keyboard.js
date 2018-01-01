@@ -18,7 +18,8 @@ const buildKeyboard = (emojiName) => {
   return ourShuffledLetters
 } 
 
-const Keyboard = ({emoji, gameplay, remaining}) => {
+const Keyboard = ({emoji, gameplay, remaining, letters}) => {
+  console.log('in the keyboard', emoji, remaining, letters)
   let keys = buildKeyboard(emoji.name) 
   return (
     <div>

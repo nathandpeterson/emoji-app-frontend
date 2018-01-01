@@ -31,6 +31,7 @@ class Quiz extends Component {
   componentDidMount = async () => {
     let allEmoji = await this.props.getAllEmoji()
     let userCollection = await this.props.getUserEmoji()
+    await this.resetEmoji()
     this.setState({ allEmoji, userCollection})
   }
 
@@ -43,14 +44,12 @@ class Quiz extends Component {
   }
     
   gameplay = () => {
-    console.log(this.state)
     let situation = Object.assign({}, this.state)
     console.log('sitttttuation',situation)
     situation.letters--
     situation.remaining = situation.remaining.slice(1)
     if(situation.letters === 0) console.log("You got it!")
-    this.setState(situation)
-    this.setState({currentGame:{letters: situation.letters}})
+    this.setState({letters: situation.letters, remaining: situation.remaining})
   }
   resetEmoji = () => {
     //Resets to a random emoji not in the current player's collection
@@ -58,15 +57,14 @@ class Quiz extends Component {
     this.setState({emoji: {id: currentEmoji.id, 
                           name: currentEmoji.name, 
                           image: currentEmoji.image, 
-                          level: currentEmoji.level}})
+                          level: currentEmoji.level
+                        },
+                      letters: currentEmoji.name.length,
+                      remaining: currentEmoji.name})
   }
 
-  componentDidMount = async () => {
-    this.resetEmoji()
-  }
       
   render() {
-    console.log(this.props)
     return (
       <FadeIn>
          <div>
@@ -79,7 +77,8 @@ class Quiz extends Component {
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}
-        remaining={this.state.emoji.name}/>
+        remaining={this.state.remaining}
+        letters={this.state.letters}/>
         </div>
         </FadeIn>
     );
