@@ -10,12 +10,7 @@ class Quiz extends Component {
         this.state = {
           allEmoji: this.props.allEmoji,
           userCollection: this.props.userCollection,
-          currentGame: {
-            currentEmoji: [],
-            letters: '',
-            currentWord: ''
-          },
-          emoji: {id: 18, name: 'cow', image: '🐮', level: 1},
+          emoji: {id: 0, name: '', image: '', level: 0},
           letters: 3,
           remaining: 'cow'
         }
@@ -34,21 +29,13 @@ class Quiz extends Component {
     await this.resetEmoji()
     this.setState({ allEmoji, userCollection})
   }
-
-  startGame = () => {
-    let current = this.randomEmoji()
-    console.log(current, this.state)
-    this.setState({currentGame:{currentEmoji: current.image, letter: '', currentWord: current.name,}})
-    // Check to see if the next emoji is the same as the current. If 
-    //  this.setState({currentGame :{currentEmoji: current, nextEmoji: next}})
-  }
     
   gameplay = () => {
     let situation = Object.assign({}, this.state)
     console.log('sitttttuation',situation)
     situation.letters--
     situation.remaining = situation.remaining.slice(1)
-    if(situation.letters === 0) console.log("You got it!")
+    if(situation.letters === 0) this.winEmoji()
     this.setState({letters: situation.letters, remaining: situation.remaining})
   }
   resetEmoji = () => {
@@ -62,18 +49,38 @@ class Quiz extends Component {
                       letters: currentEmoji.name.length,
                       remaining: currentEmoji.name})
   }
-
-      
+  
+  winEmoji = () => {
+    //POST win to the server and add an animation and success message.
+    console.log('WIN!!!!!',this.state)
+    //Once the post request goes through, update the state with userCollection up in dash
+    //To ensure that userCollection remains consistent, the post request should happen up in the dash component
+    //wait two seconds and then call this.resetEmoji()
+    setTimeout(this.resetEmoji, 2000)
+  }
+  renderCorrectLetters = () => {
+    let remaining = this.state.remaining
+    let word = this.state.emoji.name
+    let difference = word.length - remaining.length
+    return word.slice(0, difference)
+  }
+  
   render() {
     return (
       <FadeIn>
          <div>
-          <div className="game-container">
-            <span className="emoji-lg" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.image}</span>
-            <span className="quiz-letters">{this.state.currentGame.letters}</span>
-          </div>
-          
-          <Button onClick={this.startGame}> RANDOM </Button>
+          <div className="flip-container">
+          <div className="flipper">
+            <div className="front">
+              <span className="emoji-lg" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.image}</span>
+              <span className="quiz-letters">{this.renderCorrectLetters()}</span>
+            </div>
+            <div className="back">
+            <span className="emoji-lg">{this.state.emoji.name}</span>
+            </div>
+            </div>
+          </div>        
+          <Button onClick={this.resetEmoji}> RANDOM </Button>
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}
