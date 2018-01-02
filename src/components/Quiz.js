@@ -29,7 +29,7 @@ class Quiz extends Component {
     await this.resetEmoji()
     this.setState({ allEmoji, userCollection})
   }
-    
+
   gameplay = () => {
     let situation = Object.assign({}, this.state)
     console.log('sitttttuation',situation)
@@ -41,15 +41,15 @@ class Quiz extends Component {
   resetEmoji = () => {
     //Resets to a random emoji not in the current player's collection
     let currentEmoji = this.randomEmoji()
-    this.setState({emoji: {id: currentEmoji.id, 
-                          name: currentEmoji.name, 
-                          image: currentEmoji.image, 
+    this.setState({emoji: {id: currentEmoji.id,
+                          name: currentEmoji.name,
+                          image: currentEmoji.image,
                           level: currentEmoji.level
                         },
                       letters: currentEmoji.name.length,
                       remaining: currentEmoji.name})
   }
-  
+
   winEmoji = () => {
     //POST win to the server and add an animation and success message.
     console.log('WIN!!!!!',this.state)
@@ -64,7 +64,7 @@ class Quiz extends Component {
     let difference = word.length - remaining.length
     return word.slice(0, difference)
   }
-  
+
   render() {
     return (
       <FadeIn>
@@ -79,7 +79,7 @@ class Quiz extends Component {
             <span className="emoji-lg">{this.state.emoji.name}</span>
             </div>
             </div>
-          </div>        
+          </div>
           <Button onClick={this.resetEmoji}> RANDOM </Button>
         <Keyboard
         emoji={this.state.emoji}
@@ -87,7 +87,7 @@ class Quiz extends Component {
         remaining={this.state.remaining}
         letters={this.state.letters}/>
         </div>
-        </FadeIn>
+      </FadeIn>
     );
   }
 }

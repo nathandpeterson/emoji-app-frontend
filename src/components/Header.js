@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Chip} from 'react-materialize'
+import {Button} from 'react-materialize'
 
 class Header extends Component {
     loginClick(){

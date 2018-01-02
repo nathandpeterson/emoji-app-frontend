@@ -100,7 +100,6 @@ class App extends Component {
             lock={this.lock}
             accessToken={this.state.accessToken}
             profile={this.state.profile}
-            logout={this.logout.bind(this)}
             /> :
       <Landing loginClick={this.showModal}
                 lock={this.lock}
