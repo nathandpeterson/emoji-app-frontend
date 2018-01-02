@@ -1,42 +1,35 @@
-
 import React, { Component } from 'react'
+import FadeIn from 'react-fade-in'
 
 class Emoji extends Component {
     constructor(){
         super()
         this.state = {
-            emojis: []
+            allEmoji: []
         }
       }
-
-      componentDidMount(){
-          fetch('http://localhost:3030/api/emoji')
-          .then(results => {
-              return results.json()
-          }).then(data =>{
-              let emojis = data.results.map((emoji)=>{
-                  return(
-                      <div key={emoji.results}>
-                      <div>{emoji.symbol}</div>
-                      </div>
-                  )
-              })
-              this.setState({emojis})
-              console.log("state", this.state.emojis)
-          })
+      getAllEmoji = async () => {
+        //This method should filter and only pull the current user's emoji
+        let results = await fetch('http://localhost:3030/api/emoji')
+        let json = await results.json()
+        return json
       }
-
+      componentDidMount = async () => {
+        const allEmoji = await this.getAllEmoji()
+        this.setState({allEmoji: [...allEmoji.results]})
+      }
       render(){
           return (
-
             <div>
-                {this.state.emojis}
+                {this.state.allEmoji.map((emoji,id) => {
+                   return ( <span key={id} className="emoji-container">
+                   <span className="emoji-small" role="img" aria-label={emoji.name}>{emoji.image}</span>
+                  </span>
+                  )
+                })}
             </div>
-            
           )
       }
-
-
 }
 
 export default Emoji

@@ -3,6 +3,7 @@ import React from 'react';
 const Key = ({letter, word, gameplay, remaining}) => {
 
 const handleClick = (e) => {
+  console.log(letter, word, remaining)
   if(e.target.innerHTML === remaining[0]){
     console.log("correct!")
     gameplay()

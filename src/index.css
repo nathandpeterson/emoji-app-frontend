@@ -1,5 +1,73 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  background-color: #06D6A0;
+  color: #e91e63;
+}
+
+.emoji-lg {
+  font-size: 10rem;
+  margin: 0;
+}
+
+.emoji-med {
+  font-size: 7.5rem;
+  padding: 1rem;
+}
+
+.emoji-small {
+  font-size: 2.5rem;
+  padding: 1rem;
+}
+
+.name-card {
+  font-family: "Indie Flower", sans-serif;
+  font-size: 2rem;
+}
+
+.emoji-container:hover {
+  -webkit-animation: bounce 1s;
+  animation: bounce 1s;
+}
+
+.game-container {
+  display: flex;
+  align-content: center;
+}
+
+.quiz-letters {
+  font-size: 5rem;
+  background: white;
+  border-radius: 2px;
+}
+
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+  transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+  width: 20rem;
+  height: 10rem;
+}
+
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+.front, .back {
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.front {
+	z-index: 2;
+	transform: rotateY(0deg);
+}
+
+.back {
+	transform: rotateY(180deg);
 }
