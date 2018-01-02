@@ -31,7 +31,7 @@ class Quiz extends Component {
     await this.resetEmoji()
     this.setState({ allEmoji, userCollection })
   }
-    
+
   gameplay = () => {
     let situation = Object.assign({}, this.state)
     situation.letters--
@@ -48,16 +48,21 @@ class Quiz extends Component {
   resetEmoji = () => {
     //Resets to a random emoji not in the current player's collection
     let currentEmoji = this.randomEmoji()
-    this.setState({emoji: {id: currentEmoji.id, 
-                          name: currentEmoji.name, 
-                          image: currentEmoji.image, 
+    this.setState({emoji: {id: currentEmoji.id,
+                          name: currentEmoji.name,
+                          image: currentEmoji.image,
                           level: currentEmoji.level
                         },
                       letters: currentEmoji.name.length,
                       remaining: currentEmoji.name})
   }
+<<<<<<< HEAD
   
   winEmoji = async () => {
+=======
+
+  winEmoji = () => {
+>>>>>>> ab1c7e90a6fb248e316126f573507c58e676106a
     //POST win to the server and add an animation and success message.
     console.log('WIN!!!!!',this.state)
     this.setState({emoji: {image: '✨⭐️✨', name: "HOORAY"}, remaining: this.state.emoji.name})
@@ -72,7 +77,7 @@ class Quiz extends Component {
       let difference = word.length - remaining.length
       return word.slice(0, difference)
   }
-  
+
   render() {
     return (
       <FadeIn>
@@ -89,8 +94,13 @@ class Quiz extends Component {
             <span className="emoji-lg">{this.state.emoji.name}</span>
             </div>
             </div>
+<<<<<<< HEAD
           </div>        
           <Button onClick={this.wrongLetter}> RANDOM </Button>
+=======
+          </div>
+          <Button onClick={this.resetEmoji}> RANDOM </Button>
+>>>>>>> ab1c7e90a6fb248e316126f573507c58e676106a
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}
@@ -99,7 +109,7 @@ class Quiz extends Component {
         wrongLetter={ this.wrongLetter }
         status={ this.state.status }/>
         </div>
-        </FadeIn>
+      </FadeIn>
     );
   }
 }

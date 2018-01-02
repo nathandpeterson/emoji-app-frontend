@@ -26,7 +26,7 @@ class App extends Component {
     this.lock.on('authenticated', (authResult)=>{
       console.log(authResult, 'authResult')
       this.lock.getUserInfo(authResult.accessToken, (error, profile)=>{
-        
+
         if(error) {
           console.log(error)
           return
@@ -82,7 +82,7 @@ class App extends Component {
     this.lock.show()
   }
 
-  //delete token in state and local storage 
+  //delete token in state and local storage
   logout(){
     this.setState({
       accessToken: '',
@@ -91,15 +91,15 @@ class App extends Component {
       localStorage.removeItem('accessToken')
       localStorage.removeItem('profile')
     })
-    
+
   }
 
   render() {
-    
+
     return (
       <div className="App">
       {/* header is essentially the nav, it doesn't actually have to be a header, . . . .*/}
-      <Header 
+      <Header
       lock={this.lock}
       accessToken={this.state.accessToken}
       profile={this.state.profile}
@@ -107,12 +107,12 @@ class App extends Component {
       loginClick={this.showModal.bind(this)}
       />
       {/* this below is the page from the ternary below render */}
-     
-      {this.state.accessToken ? <Dash 
+
+      {this.state.accessToken ? <Dash
             lock={this.lock}
             accessToken={this.state.accessToken}
             profile={this.state.profile}
-            /> : 
+            /> :
       <Landing loginClick={this.showModal}
                 lock={this.lock}
                 accessToken={this.state.accessToken}
@@ -125,7 +125,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-
-

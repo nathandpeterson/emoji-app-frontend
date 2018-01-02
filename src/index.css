@@ -1,7 +1,7 @@
 body {
-  margin: 0;
+  margin-top: 50px;
   padding: 0;
-  background-color: #06D6A0;
+  background-color: hsl(164, 95%, 43%);
   color: #e91e63;
 }
 
@@ -70,4 +70,19 @@ body {
 
 .back {
 	transform: rotateY(180deg);
+}
+
+.profile {
+  max-width: 150px;
+  height: auto;
+  border-radius: 50%;
+  border: 3px dashed hsl(164, 50%, 43%);
+  /* box-shadow: 5px 2px 1px hsl(164, 50%, 43%); */
+}
+
+.login {
+  background-color: white;
+  border-radius: 50px;
+  color: hsl(164, 50%, 43%);
+  /* box-shadow: none */
 }

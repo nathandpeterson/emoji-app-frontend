@@ -7,8 +7,8 @@ import FadeIn from 'react-fade-in'
 class Dash extends Component {
   constructor(){
     super()
-    this.state = {quiz: false, 
-                  emoji: false, 
+    this.state = {quiz: false,
+                  emoji: false,
                   allEmoji: [],
                   userCollection: []
                 }
@@ -35,7 +35,7 @@ class Dash extends Component {
 
   getUserEmoji = async () => {
     //I've hard-coded a userID, but we should pull the userID from token/state/profile
-    let results = await fetch(`http://localhost:3030/api/emoji/1`)
+    let results = await fetch(`http://localhost:3030/api/emoji`)
     let json = await results.json()
     return json.results
   }
@@ -57,6 +57,11 @@ class Dash extends Component {
   render() {
     return (
       <div>
+        <h1>Welcome, {this.props.profile.nickname}!</h1>
+        <h2>You have collected {this.state.userCollection.length}/{this.state.allEmoji.length} emojis.</h2>
+        <p>
+        <img className= "profile" src = {this.props.profile.picture}></img>
+        </p>
         <Button onClick={this.renderEmoji}>MY EMOJI</Button>
         <Button onClick={this.renderQuiz}>QUIZ</Button>
         <Button onClick={this.renderStories}>STORIES</Button>
@@ -67,16 +72,7 @@ class Dash extends Component {
                                   allEmoji={ this.state.allEmoji }
                                   userCollection ={ this.state.userCollection }
           />}
-    <h1>where you want me go?</h1>
-    <h2>and link to below</h2>
-    <p>dashboard will contain link to 'quiz' page and potentially stories?</p>
-    <p>could have separate profile page, or just include some info on this dashboard page? </p>
-    <Card className='small'
-    header={<CardTitle image={this.props.profile.picture}>Profile</CardTitle>}
-    actions={[<a href='#'>This is a Link</a>]}>
-    <h3>{this.props.profile.nickname}</h3>
-    </Card>
-    </div>
+      </div>
     )
   }
 }

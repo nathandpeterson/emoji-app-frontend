@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Navbar, Nav, NavItem} from 'react-materialize'
+import {Button} from 'react-materialize'
 
 class Header extends Component {
     loginClick(){
@@ -10,14 +10,14 @@ class Header extends Component {
     logoutClick(){
         this.props.logoutClick()
     }
-    
+
     render(){
-        let navItems
+        let login
         this.props.accessToken ?
-          navItems = <NavItem onClick={this.logoutClick.bind(this)} href="#">Logout</NavItem> 
-        : navItems = <NavItem onClick={this.loginClick.bind(this)} href="#">Login</NavItem>
+          login = <Button className="login" onClick={this.logoutClick.bind(this)} href="#">Logout</Button>
+        : login = <Button className="login" onClick={this.loginClick.bind(this)} href="#">Login</Button>
         return (
-            navItems
+            login
         )
     }
 }
