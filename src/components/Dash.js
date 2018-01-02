@@ -7,8 +7,8 @@ import FadeIn from 'react-fade-in'
 class Dash extends Component {
   constructor(){
     super()
-    this.state = {quiz: false, 
-                  emoji: false, 
+    this.state = {quiz: false,
+                  emoji: false,
                   allEmoji: [],
                   userCollection: []
                 }
@@ -67,8 +67,8 @@ class Dash extends Component {
                                   allEmoji={ this.state.allEmoji }
                                   userCollection ={ this.state.userCollection }
           />}
-    <h1>where you want me go?</h1>
-    <h2>and link to below</h2>
+    <h1>Welcome, {this.props.profile.nickname}!</h1>
+    <h2>You have collected .../... emojis.</h2>
     <p>dashboard will contain link to 'quiz' page and potentially stories?</p>
     <p>could have separate profile page, or just include some info on this dashboard page? </p>
     <Card className='small'
