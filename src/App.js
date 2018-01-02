@@ -21,7 +21,7 @@ class App extends Component {
     domain: 'emojiapi.auth0.com'
   }
 
-  componentWillMount(){
+  componentWillMount = () => {
     this.lock = new Auth0Lock(this.props.clientId, this.props.domain)
     this.lock.on('authenticated', (authResult)=>{
       console.log(authResult, 'authResult')
@@ -35,12 +35,24 @@ class App extends Component {
         //if email log user else post signup
         //log in -  return id from db
         //store id in local storage
-        console.log(profile)
-        this.setData(authResult.accessToken, profile) 
+      
+        this.checkForUser(profile)
+        this.setData(authResult.accessToken, profile)
       })
     })
-
     this.getData()
+  }
+
+  checkForUser = async (profile) => {
+    let userExists = await fetch(`http://localhost:3030/api/users`,
+                               
+                                  {body: JSON.stringify({email: profile.email}),
+                                  method: 'POST',
+                                  headers: {'Content-Type': 'application/json'}
+                                  })
+    let json = await userExists.json()
+    console.log('in the checkForUse',json)
+    return json
   }
 
   //function for setting token and profile data
