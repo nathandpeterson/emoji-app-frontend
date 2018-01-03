@@ -11,8 +11,8 @@ class Quiz extends Component {
           allEmoji: this.props.allEmoji,
           userCollection: this.props.userCollection,
           emoji: {id: 0, name: '', image: '', level: 0},
-          letters: 3,
-          remaining: 'cow'
+          letters: 0,
+          remaining: ''
         }
       }
 

@@ -84,5 +84,6 @@ body {
   background-color: white;
   border-radius: 50px;
   color: hsl(164, 50%, 43%);
+  margin-bottom: 50px
   /* box-shadow: none */
 }

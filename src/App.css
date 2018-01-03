@@ -17,3 +17,10 @@
   margin: 0.5rem;
   background-color: pink;
 }
+
+.story,
+.sidebar > div {
+  font-size: 40px;
+  display: inline-block;
+  float: left;
+}
