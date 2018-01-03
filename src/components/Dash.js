@@ -3,6 +3,7 @@ import Quiz from './Quiz'
 import Emoji from './Emoji'
 import {Card, CardTitle, Button} from 'react-materialize'
 import FadeIn from 'react-fade-in'
+import Spinner from './Spinner'
 
 class Dash extends Component {
   constructor(){
@@ -15,12 +16,14 @@ class Dash extends Component {
                 }
   }
   renderQuiz = () => {
+    const currentState = Object.assign({}, this.state)
     //this method checks state to see if quiz has been clicked, renders it if so
-    this.state.quiz ? this.setState({quiz:false}) : this.setState({quiz: true})
+    this.state.quiz ? this.setState({...currentState, quiz:false}) : this.setState({...currentState, quiz: true})
   }
   renderEmoji = () => {
+    const currentState = Object.assign({}, this.state)
     //this method checks state to see if MY EMOJI btn has been clicked, renders it if so
-    this.state.emoji ? this.setState({emoji:false}) : this.setState({emoji: true})
+    this.state.emoji ? this.setState({...currentState, emoji:false}) : this.setState({...currentState, emoji: true})
   }
   renderStories = () => {
     //this doesn't do anything yet...
@@ -62,7 +65,7 @@ class Dash extends Component {
     // After posting, setState with new collection
   }
 
-  refreshUserCollection = async (userID=null) => {
+  refreshUserCollection = async (userID) => {
     console.log('REFRESH', userID)
     const currentState = Object.assign({}, this.state)
     const allEmoji = await this.getAllEmoji()
@@ -75,11 +78,10 @@ class Dash extends Component {
   }
 
   render() {
-    console.log(this.props, 'in the dash...........')
     return (
       <div>
-        <h1>Welcome, {this.props.profile.nickname}!</h1>
-        <h2>You have collected {this.state.userCollection.length}/{this.state.allEmoji.length} emojis.</h2>
+        <h3>Welcome, {this.props.profile.nickname}!</h3>
+        <h4>You have collected {this.state.userCollection.length}/{this.state.allEmoji.length} emojis.</h4>
         <p>
         <img className= "profile" src = {this.props.profile.picture}></img>
         </p>

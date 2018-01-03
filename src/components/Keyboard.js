@@ -36,4 +36,4 @@ const Keyboard = ({emoji, gameplay, remaining, letters, wrongLetter}) => {
   )
 }
 
-export default Keyboard;
+export default Keyboard

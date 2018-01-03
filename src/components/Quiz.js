@@ -30,13 +30,11 @@ class Quiz extends Component {
     let allEmoji = await this.props.getAllEmoji()
     let userCollection = await this.props.getUserEmoji()
     await this.resetEmoji()
-    console.log('this dot props dot userInfo', this.props)
     this.setState({ allEmoji, userCollection, userInfo: this.props.userInfo})
   }
 
   gameplay = () => {
     let situation = Object.assign({}, this.state)
-
     situation.letters--
     situation.remaining = situation.remaining.slice(1)
     if(situation.letters === 0) this.winEmoji(situation.userInfo.id)
@@ -44,14 +42,16 @@ class Quiz extends Component {
   }
 
   wrongLetter = () => {
-    const currentState = {...this.state, status: 'wrong'}
+    const currentState = Object.assign({}, this.state)
     this.setState({...currentState, status: 'wrong'})
   }
   
   resetEmoji = () => {
+    console.log(this.state)
+    const currentState = Object.assign({}, this.state)
     //Resets to a random emoji not in the current player's collection
     let currentEmoji = this.randomEmoji()
-    this.setState({emoji: {id: currentEmoji.id,
+    this.setState({...currentState, emoji: {id: currentEmoji.id,
                           name: currentEmoji.name,
                           image: currentEmoji.image,
                           level: currentEmoji.level
@@ -94,7 +94,7 @@ class Quiz extends Component {
             </div>
             </div>
           </div>        
-          <Button onClick={this.wrongLetter}> RANDOM </Button>
+          <Button onClick={this.resetEmoji}> RANDOM </Button>
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}

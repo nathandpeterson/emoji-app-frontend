@@ -6,6 +6,7 @@ import {Button} from 'react-materialize'
 import Header from './components/Header.js'
 import Landing from './components/Landing'
 import Dash from './components/Dash'
+import Spinner from './components/Spinner'
 
 class App extends Component {
   constructor(){
@@ -35,7 +36,6 @@ class App extends Component {
         //if email log user else post signup
         //log in -  return id from db
         //store id in local storage
-      
         this.checkForUser(profile)
         this.setData(authResult.accessToken, profile)
       })
@@ -44,8 +44,7 @@ class App extends Component {
   }
 
   checkForUser = async (profile) => {
-    let userExists = await fetch(`http://localhost:3030/api/users`,
-                               
+    let userExists = await fetch(`http://localhost:3030/api/users`,                     
                                   {body: JSON.stringify({email: profile.email}),
                                   method: 'POST',
                                   headers: {'Content-Type': 'application/json'}
@@ -53,7 +52,6 @@ class App extends Component {
     let json = await userExists.json()
     let currentState = await Object.assign({}, this.state)
     await this.setState({...currentState, userInfo: json})
-    return json
   }
 
   //function for setting token and profile data
@@ -95,6 +93,16 @@ class App extends Component {
 
   }
 
+  renderDash = () => {
+    console.log('in renderDASH-----', this.state.userInfo)
+    return <Dash
+      lock={this.lock}
+      accessToken={this.state.accessToken}
+      profile={this.state.profile}
+      userInfo={this.state.userInfo}
+      />
+  }
+
   render() {
     console.log(this.state.userInfo, 'in the app rendermethod userInfo')
     return (
@@ -107,14 +115,8 @@ class App extends Component {
       logoutClick={this.logout.bind(this)}
       loginClick={this.showModal.bind(this)}
       />
-      {/* this below is the page from the ternary below render */}
-
-      {this.state.accessToken ? <Dash
-            lock={this.lock}
-            accessToken={this.state.accessToken}
-            profile={this.state.profile}
-            userInfo={this.state.userInfo}
-            /> :
+      {this.state.accessToken && !this.state.userInfo.id && <Spinner />}
+      {this.state.accessToken && this.state.userInfo.id ? this.renderDash() :
       <Landing loginClick={this.showModal}
                 lock={this.lock}
                 accessToken={this.state.accessToken}
