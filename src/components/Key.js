@@ -1,19 +1,17 @@
-import React from 'react';
+import React from 'react'
 
-const Key = ({letter, word, gameplay, remaining}) => {
+const Key = ({letter, word, gameplay, remaining, wrongLetter}) => {
 
 const handleClick = (e) => {
-  console.log(letter, word, remaining)
   if(e.target.innerHTML === remaining[0]){
-    console.log("correct!")
     gameplay()
   }
-  else console.log("WROOOOOOONG!!!!")
+  else wrongLetter()
 }
   return (
     <div className="key" onClick={handleClick}>{letter}</div>
-  );
+  )
 }
 
 
-export default Key;
+export default Key

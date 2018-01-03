@@ -18,7 +18,7 @@ const buildKeyboard = (emojiName) => {
   return ourShuffledLetters
 } 
 
-const Keyboard = ({emoji, gameplay, remaining, letters}) => {
+const Keyboard = ({emoji, gameplay, remaining, letters, wrongLetter}) => {
   let keys = buildKeyboard(emoji.name) 
   return (
     <div>
@@ -29,10 +29,11 @@ const Keyboard = ({emoji, gameplay, remaining, letters}) => {
           letter={el}
           word= {emoji.name}
           gameplay={gameplay}
-          remaining={remaining}/>)}
+          remaining={remaining}
+          wrongLetter={ wrongLetter }/>)}
       </div>
     </div>
   )
 }
 
-export default Keyboard;
+export default Keyboard
