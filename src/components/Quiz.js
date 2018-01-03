@@ -9,8 +9,8 @@ class Quiz extends Component {
     constructor(props){
         super(props)
         this.state = {
-          allEmoji: this.props.allEmoji,
-          userCollection: this.props.userCollection,
+          allEmoji: [],
+          userCollection: [],
           emoji: {id: 0, name: '', image: '', level: 0},
           letters: 3,
           remaining: 'cow',
@@ -28,9 +28,9 @@ class Quiz extends Component {
 
   componentDidMount = async () => {
     let allEmoji = await this.props.getAllEmoji()
-    let userCollection = await this.props.getUserEmoji()
+    let userCollection = await this.props.getUserEmoji(this.props.userInfo.id)
     await this.resetEmoji()
-    this.setState({ allEmoji, userCollection, userInfo: this.props.userInfo})
+    await this.setState({ allEmoji, userCollection, userInfo: this.props.userInfo})
   }
 
   gameplay = () => {
@@ -47,7 +47,6 @@ class Quiz extends Component {
   }
   
   resetEmoji = () => {
-    console.log(this.state)
     const currentState = Object.assign({}, this.state)
     //Resets to a random emoji not in the current player's collection
     let currentEmoji = this.randomEmoji()
@@ -57,7 +56,8 @@ class Quiz extends Component {
                           level: currentEmoji.level
                         },
                       letters: currentEmoji.name.length,
-                      remaining: currentEmoji.name})
+                      remaining: currentEmoji.name,
+                      status: 'neutral'})
   }
   
   winEmoji = async (id) => {
@@ -72,7 +72,7 @@ class Quiz extends Component {
   }
   renderCorrectLetters = () => {
       let remaining = this.state.remaining || 6
-      let word = this.state.emoji.name || 'HOORAY'
+      let word = this.state.emoji.name || 'ERROR'
       let difference = word.length - remaining.length
       return word.slice(0, difference)
   }

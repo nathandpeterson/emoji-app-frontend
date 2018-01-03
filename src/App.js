@@ -25,9 +25,9 @@ class App extends Component {
 
   componentDidMount = async () => {
     this.lock = new Auth0Lock(this.props.clientId, this.props.domain)
-    this.lock.on('authenticated', (authResult)=>{
-      console.log(authResult, 'authResult')
-      this.lock.getUserInfo(authResult.accessToken, (error, profile)=>{
+    await this.lock.on('authenticated', async (authResult)=>{
+      // console.log(authResult, 'authResult')
+      await this.lock.getUserInfo(authResult.accessToken, async (error, profile)=>{
         if(error) {
           console.log(error)
           return
@@ -36,8 +36,8 @@ class App extends Component {
         //if email log user else post signup
         //log in -  return id from db
         //store id in local storage
-        this.checkForUser(profile)
-        this.setData(authResult.accessToken, profile)
+        await this.checkForUser(profile)
+        await this.setData(authResult.accessToken, profile)
       })
     })
     this.getData()
@@ -94,17 +94,16 @@ class App extends Component {
   }
 
   renderDash = () => {
-    console.log('in renderDASH-----', this.state.userInfo)
     return <Dash
       lock={this.lock}
       accessToken={this.state.accessToken}
       profile={this.state.profile}
       userInfo={this.state.userInfo}
+      checkForUser={this.checkForUser}
       />
   }
 
   render() {
-    console.log(this.state.userInfo, 'in the app rendermethod userInfo')
     return (
       <div className="App">
       {/* header is essentially the nav, it doesn't actually have to be a header, . . . .*/}
@@ -115,7 +114,7 @@ class App extends Component {
       logoutClick={this.logout.bind(this)}
       loginClick={this.showModal.bind(this)}
       />
-      {this.state.accessToken && !this.state.userInfo.id && <Spinner />}
+      {this.state.accessToken && !this.state.userInfo.id ? <Spinner /> : null}
       {this.state.accessToken && this.state.userInfo.id ? this.renderDash() :
       <Landing loginClick={this.showModal}
                 lock={this.lock}

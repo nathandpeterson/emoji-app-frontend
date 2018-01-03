@@ -6,6 +6,7 @@ import FadeIn from 'react-fade-in'
 import Spinner from './Spinner'
 
 class Dash extends Component {
+
   constructor(){
     super()
     this.state = {quiz: false,
@@ -38,8 +39,7 @@ class Dash extends Component {
   }
 
   getUserEmoji = async (userID) => {
-    //I've hard-coded a userID, but we should pull the userID from token/state/profile
-    let results = await fetch(`http://localhost:3030/api/emoji/1`)
+    let results = await fetch(`http://localhost:3030/api/emoji/${userID}`)
     let json = await results.json()
     return json.results
   }
@@ -53,49 +53,57 @@ class Dash extends Component {
   }
 
   winEmoji = async (userId, emojiId) => {
-    console.log('win! should log user and emoji',userId, emojiId, typeof userId)
     let response = await fetch(`http://localhost:3030/api/users/${userId}`,
                                {body: JSON.stringify({emoji_id: emojiId}),
                                 method: 'POST',
                                 headers: {'Content-Type': 'application/json'}
                                 })
     let json = await response.json()
-    await console.log(json)
     await this.refreshUserCollection(userId)
+    console.log('just won! here is the post result', json)
+
     // After posting, setState with new collection
   }
 
   refreshUserCollection = async (userID) => {
-    console.log('REFRESH', userID)
+    // I just set the userID to 6 if it can't figure out what's going on
+    if(!userID) {
+      userID = this.props.userInfo.id
+      console.log('REFRESH STATE', userID)
+    } 
     const currentState = Object.assign({}, this.state)
     const allEmoji = await this.getAllEmoji()
     const userCollection = await this.getUserEmoji(userID)
-    this.setState({...currentState, allEmoji, userCollection})
+    await this.setState({...currentState, allEmoji, userCollection})
   }
 
   componentDidMount = async () => {
-    await this.refreshUserCollection()
+    this.refreshUserCollection(this.props.userInfo.id)
   }
+  
 
   render() {
+    console.log('inside the dash render', this.props)
     return (
       <div>
         <h3>Welcome, {this.props.profile.nickname}!</h3>
-        <h4>You have collected {this.state.userCollection.length}/{this.state.allEmoji.length} emojis.</h4>
+        <h4>You have collected {this.state.userCollection.length} emojis.</h4>
         <p>
         <img className= "profile" src = {this.props.profile.picture}></img>
         </p>
         <Button onClick={this.renderEmoji}>MY EMOJI</Button>
         <Button onClick={this.renderQuiz}>QUIZ</Button>
         <Button onClick={this.renderStories}>STORIES</Button>
-        {this.state.emoji && <FadeIn><Emoji /></FadeIn>}
+        {this.state.emoji && <FadeIn><Emoji userCollection={this.state.userCollection}
+                                            allEmoji={this.state.allEmoji}
+                              /></FadeIn>}
         {this.state.quiz && <Quiz getAllEmoji={this.getAllEmoji}
                                   getUserEmoji={this.getUserEmoji}
                                   filterEmoji={this.filterEmoji}
                                   allEmoji={ this.state.allEmoji }
                                   userCollection ={ this.state.userCollection }
                                   userInfo={ this.props.userInfo }
-                                  winEmoji={ this.winEmoji}
+                                  winEmoji={ this.winEmoji }
           />}
       </div>
     )
