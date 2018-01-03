@@ -66,9 +66,6 @@ class Quiz extends Component {
     let quizEmoji = document.querySelector('#quiz-emoji')
     quizEmoji.classList.add('zoomOutUp')
     await window.setTimeout(this.fader, 750)
-    //Once the post request goes through, update the state with userCollection up in dash
-    //To ensure that userCollection remains consistent, the post request should happen up in the dash component
-    //wait two seconds and then call this.resetEmoji()
     await window.setTimeout(this.resetEmoji, 850)
     await quizEmoji.classList.remove('zoomInDown')
   }
