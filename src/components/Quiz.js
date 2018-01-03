@@ -14,7 +14,8 @@ class Quiz extends Component {
           emoji: {id: 0, name: '', image: '', level: 0},
           letters: 3,
           remaining: 'cow',
-          status: 'neutral'
+          status: 'neutral',
+          userInfo: []
         }
       }
 
@@ -29,14 +30,16 @@ class Quiz extends Component {
     let allEmoji = await this.props.getAllEmoji()
     let userCollection = await this.props.getUserEmoji()
     await this.resetEmoji()
-    this.setState({ allEmoji, userCollection })
+    console.log('this dot props dot userInfo', this.props)
+    this.setState({ allEmoji, userCollection, userInfo: this.props.userInfo})
   }
 
   gameplay = () => {
     let situation = Object.assign({}, this.state)
+
     situation.letters--
     situation.remaining = situation.remaining.slice(1)
-    if(situation.letters === 0) this.winEmoji()
+    if(situation.letters === 0) this.winEmoji(situation.userInfo.id)
     this.setState({letters: situation.letters, remaining: situation.remaining, status: 'correct'})
   }
 
@@ -56,16 +59,12 @@ class Quiz extends Component {
                       letters: currentEmoji.name.length,
                       remaining: currentEmoji.name})
   }
-<<<<<<< HEAD
   
-  winEmoji = async () => {
-=======
-
-  winEmoji = () => {
->>>>>>> ab1c7e90a6fb248e316126f573507c58e676106a
+  winEmoji = async (id) => {
     //POST win to the server and add an animation and success message.
     console.log('WIN!!!!!',this.state)
-    this.setState({emoji: {image: '✨⭐️✨', name: "HOORAY"}, remaining: this.state.emoji.name})
+    this.props.winEmoji(id, this.state.emoji.id)
+    this.setState({emoji: {image: '✨⭐️✨', name: ""}, remaining: this.state.emoji.name})
     //Once the post request goes through, update the state with userCollection up in dash
     //To ensure that userCollection remains consistent, the post request should happen up in the dash component
     //wait two seconds and then call this.resetEmoji()
@@ -94,13 +93,8 @@ class Quiz extends Component {
             <span className="emoji-lg">{this.state.emoji.name}</span>
             </div>
             </div>
-<<<<<<< HEAD
           </div>        
           <Button onClick={this.wrongLetter}> RANDOM </Button>
-=======
-          </div>
-          <Button onClick={this.resetEmoji}> RANDOM </Button>
->>>>>>> ab1c7e90a6fb248e316126f573507c58e676106a
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}

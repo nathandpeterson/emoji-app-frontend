@@ -12,7 +12,8 @@ class App extends Component {
     super()
     this.state = {
       accessToken: '',
-      profile: {}
+      profile: {},
+      userInfo: []
     }
   }
 
@@ -21,12 +22,11 @@ class App extends Component {
     domain: 'emojiapi.auth0.com'
   }
 
-  componentWillMount = () => {
+  componentDidMount = async () => {
     this.lock = new Auth0Lock(this.props.clientId, this.props.domain)
     this.lock.on('authenticated', (authResult)=>{
       console.log(authResult, 'authResult')
       this.lock.getUserInfo(authResult.accessToken, (error, profile)=>{
-
         if(error) {
           console.log(error)
           return
@@ -51,7 +51,8 @@ class App extends Component {
                                   headers: {'Content-Type': 'application/json'}
                                   })
     let json = await userExists.json()
-    console.log('in the checkForUse',json)
+    let currentState = await Object.assign({}, this.state)
+    await this.setState({...currentState, userInfo: json})
     return json
   }
 
@@ -95,7 +96,7 @@ class App extends Component {
   }
 
   render() {
-
+    console.log(this.state.userInfo, 'in the app rendermethod userInfo')
     return (
       <div className="App">
       {/* header is essentially the nav, it doesn't actually have to be a header, . . . .*/}
@@ -112,6 +113,7 @@ class App extends Component {
             lock={this.lock}
             accessToken={this.state.accessToken}
             profile={this.state.profile}
+            userInfo={this.state.userInfo}
             /> :
       <Landing loginClick={this.showModal}
                 lock={this.lock}

@@ -10,7 +10,8 @@ class Dash extends Component {
     this.state = {quiz: false,
                   emoji: false,
                   allEmoji: [],
-                  userCollection: []
+                  userCollection: [],
+                  userInfo: []
                 }
   }
   renderQuiz = () => {
@@ -33,9 +34,9 @@ class Dash extends Component {
     return json.results
   }
 
-  getUserEmoji = async () => {
+  getUserEmoji = async (userID) => {
     //I've hard-coded a userID, but we should pull the userID from token/state/profile
-    let results = await fetch(`http://localhost:3030/api/emoji`)
+    let results = await fetch(`http://localhost:3030/api/emoji/1`)
     let json = await results.json()
     return json.results
   }
@@ -48,13 +49,33 @@ class Dash extends Component {
     return filteredEmoji
   }
 
-  componentDidMount = async () => {
+  winEmoji = async (userId, emojiId) => {
+    console.log('win! should log user and emoji',userId, emojiId, typeof userId)
+    let response = await fetch(`http://localhost:3030/api/users/${userId}`,
+                               {body: JSON.stringify({emoji_id: emojiId}),
+                                method: 'POST',
+                                headers: {'Content-Type': 'application/json'}
+                                })
+    let json = await response.json()
+    await console.log(json)
+    await this.refreshUserCollection(userId)
+    // After posting, setState with new collection
+  }
+
+  refreshUserCollection = async (userID=null) => {
+    console.log('REFRESH', userID)
+    const currentState = Object.assign({}, this.state)
     const allEmoji = await this.getAllEmoji()
-    const userCollection = await this.getUserEmoji()
-    this.setState({allEmoji, userCollection})
+    const userCollection = await this.getUserEmoji(userID)
+    this.setState({...currentState, allEmoji, userCollection})
+  }
+
+  componentDidMount = async () => {
+    await this.refreshUserCollection()
   }
 
   render() {
+    console.log(this.props, 'in the dash...........')
     return (
       <div>
         <h1>Welcome, {this.props.profile.nickname}!</h1>
@@ -71,6 +92,8 @@ class Dash extends Component {
                                   filterEmoji={this.filterEmoji}
                                   allEmoji={ this.state.allEmoji }
                                   userCollection ={ this.state.userCollection }
+                                  userInfo={ this.props.userInfo }
+                                  winEmoji={ this.winEmoji}
           />}
       </div>
     )
