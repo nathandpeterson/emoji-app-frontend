@@ -63,6 +63,10 @@ body {
   left: 0;
 }
 
+.flip-letters {
+  font-size: 6rem;
+}
+
 .front {
 	z-index: 2;
   transform: rotateY(0deg);
@@ -87,4 +91,8 @@ body {
   color: hsl(164, 50%, 43%);
   margin-bottom: 50px
   /* box-shadow: none */
+}
+
+.win-emoji {
+  transition: 1s;
 }

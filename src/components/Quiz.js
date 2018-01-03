@@ -62,14 +62,23 @@ class Quiz extends Component {
   
   winEmoji = async (id) => {
     //POST win to the server and add an animation and success message.
-    console.log('WIN!!!!!',this.state)
     this.props.winEmoji(id, this.state.emoji.id)
-    this.setState({emoji: {image: '✨⭐️✨', name: ""}, remaining: this.state.emoji.name})
+    let quizEmoji = document.querySelector('#quiz-emoji')
+    quizEmoji.classList.add('zoomOutUp')
+    await window.setTimeout(this.fader, 750)
     //Once the post request goes through, update the state with userCollection up in dash
     //To ensure that userCollection remains consistent, the post request should happen up in the dash component
     //wait two seconds and then call this.resetEmoji()
-    setTimeout(this.resetEmoji, 2000)
+    await window.setTimeout(this.resetEmoji, 850)
+    await quizEmoji.classList.remove('zoomInDown')
   }
+
+  fader = async () => {
+    let quizEmoji = document.querySelector('#quiz-emoji')
+    quizEmoji.classList.remove('zoomOutUp')
+    quizEmoji.classList.add('zoomInDown')
+  }  
+
   renderCorrectLetters = () => {
       let remaining = this.state.remaining || 6
       let word = this.state.emoji.name || 'ERROR'
@@ -90,7 +99,7 @@ class Quiz extends Component {
               <span className="quiz-letters">{this.renderCorrectLetters()}</span>
             </div>
             <div className="back">
-            <div className="emoji-lg">{this.state.emoji.name}</div>
+            <div className="flip-letters">{this.state.emoji.name}</div>
             </div>
             </div>
           </div>
@@ -102,7 +111,6 @@ class Quiz extends Component {
         letters={this.state.letters}
         wrongLetter={ this.wrongLetter }
         status={ this.state.status }/>
-        
         </div>
         <Button onClick={this.resetEmoji}> NEXT </Button>
          
