@@ -1,16 +1,27 @@
 import React, { Component } from 'react'
 import Quiz from './Quiz'
 import Emoji from './Emoji'
+import Story from './Story'
+import Profile from './Profile'
 import {Card, CardTitle, Button} from 'react-materialize'
 import FadeIn from 'react-fade-in'
 import Spinner from './Spinner'
 
 class Dash extends Component {
+<<<<<<< HEAD
 
   constructor(){
     super()
     this.state = {quiz: false,
+=======
+  constructor(props){
+    super(props)
+    this.state = {
+                  profile: true,
+                  quiz: false,
+>>>>>>> a94562836dcf38100d361becd6af8c2d546edc3e
                   emoji: false,
+                  story: false,
                   allEmoji: [],
                   userCollection: [],
                   userInfo: []
@@ -19,17 +30,59 @@ class Dash extends Component {
   renderQuiz = () => {
     const currentState = Object.assign({}, this.state)
     //this method checks state to see if quiz has been clicked, renders it if so
+<<<<<<< HEAD
     this.state.quiz ? this.setState({...currentState, quiz:false}) : this.setState({...currentState, quiz: true})
+=======
+    this.state.quiz ?
+      this.setState({
+        profile:true,
+        quiz:false,
+        emoji:false,
+        story:false
+      })
+    : this.setState({
+        quiz: true,
+        emoji:false,
+        story:false,
+        profile:false
+      })
+>>>>>>> a94562836dcf38100d361becd6af8c2d546edc3e
   }
   renderEmoji = () => {
     const currentState = Object.assign({}, this.state)
     //this method checks state to see if MY EMOJI btn has been clicked, renders it if so
+<<<<<<< HEAD
     this.state.emoji ? this.setState({...currentState, emoji:false}) : this.setState({...currentState, emoji: true})
+=======
+    this.state.emoji ?
+      this.setState({
+        emoji:false,
+        quiz:false,
+        story:false,
+        profile:true
+      })
+      : this.setState({
+        emoji: true,
+        quiz:false,
+        story:false,
+        profile:false
+      })
+>>>>>>> a94562836dcf38100d361becd6af8c2d546edc3e
   }
   renderStories = () => {
-    //this doesn't do anything yet...
-    console.log('load stories component')
-    console.log(this.state)
+    this.state.story ?
+      this.setState({
+        emoji:false,
+        quiz:false,
+        story:false,
+        profile: true
+      })
+      : this.setState({
+        emoji: false,
+        quiz:false,
+        story:true,
+        profile:false
+      })
   }
   getAllEmoji = async () => {
     //Grabs all emoji from server/db
@@ -86,6 +139,7 @@ class Dash extends Component {
     console.log('inside the dash render', this.props)
     return (
       <div>
+<<<<<<< HEAD
         <h3>Welcome, {this.props.profile.nickname}!</h3>
         <h4>You have collected {this.state.userCollection.length} emojis.</h4>
         <p>
@@ -105,6 +159,30 @@ class Dash extends Component {
                                   userInfo={ this.props.userInfo }
                                   winEmoji={ this.winEmoji }
           />}
+=======
+        {this.state.profile && <Profile
+          user = { this.props.profile }
+          allEmoji={ this.state.allEmoji }
+          userCollection ={ this.state.userCollection }/>}
+
+        <Button onClick={this.renderEmoji}>MY EMOJI</Button>
+        <Button onClick={this.renderQuiz}>QUIZ</Button>
+        <Button onClick={this.renderStories}>STORIES</Button>
+
+        {this.state.emoji && <FadeIn><Emoji /></FadeIn>}
+        {this.state.quiz && <Quiz
+            getAllEmoji={this.getAllEmoji}
+            getUserEmoji={this.getUserEmoji}
+            filterEmoji={this.filterEmoji}
+            allEmoji={ this.state.allEmoji }
+            userCollection ={ this.state.userCollection }/>}
+        {this.state.story && <Story
+            getAllEmoji={this.getAllEmoji}
+            getUserEmoji={this.getUserEmoji}
+            filterEmoji={this.filterEmoji}
+            allEmoji={ this.state.allEmoji }
+            userCollection ={ this.state.userCollection }/>}
+>>>>>>> a94562836dcf38100d361becd6af8c2d546edc3e
       </div>
     )
   }

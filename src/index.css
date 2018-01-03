@@ -7,7 +7,7 @@ body {
 
 .emoji-lg {
   font-size: 10rem;
-  margin: 0;
+  margin: 0
 }
 
 .emoji-med {
@@ -47,7 +47,8 @@ body {
 
 .flip-container, .front, .back {
   width: 20rem;
-  height: 10rem;
+  height: 25rem;
+  margin: auto;
 }
 
 .flipper {
@@ -84,5 +85,6 @@ body {
   background-color: white;
   border-radius: 50px;
   color: hsl(164, 50%, 43%);
+  margin-bottom: 50px
   /* box-shadow: none */
 }
