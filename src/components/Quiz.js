@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import Keyboard from './Keyboard'
 import FadeIn from 'react-fade-in'
-import {Button} from 'react-materialize'
+import {Button, Row, Col} from 'react-materialize'
 import QuizEmoji from './QuizEmoji'
 
 class Quiz extends Component {
@@ -79,7 +79,7 @@ class Quiz extends Component {
 
   render() {
     return (
-      <FadeIn>
+      <FadeIn>    
          <div className="game-container">
           <div className="flip-container">
           <div className="flipper">
@@ -93,8 +93,8 @@ class Quiz extends Component {
             <div className="emoji-lg">{this.state.emoji.name}</div>
             </div>
             </div>
-          </div>        
-          <Button onClick={this.resetEmoji}> RANDOM </Button>
+          </div>
+         
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}
@@ -102,7 +102,10 @@ class Quiz extends Component {
         letters={this.state.letters}
         wrongLetter={ this.wrongLetter }
         status={ this.state.status }/>
+        
         </div>
+        <Button onClick={this.resetEmoji}> NEXT </Button>
+         
       </FadeIn>
     );
   }

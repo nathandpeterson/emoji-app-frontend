@@ -32,11 +32,10 @@ body {
 
 .game-container {
   display: flex;
-  align-content: center;
 }
 
 .quiz-letters {
-  font-size: 5rem;
+  font-size: 3rem;
   background: white;
   border-radius: 2px;
 }
@@ -46,8 +45,8 @@ body {
 }
 
 .flip-container, .front, .back {
-  width: 20rem;
-  height: 25rem;
+  width: 10rem;
+  height: 15rem;
   margin: auto;
 }
 
@@ -61,16 +60,17 @@ body {
 	backface-visibility: hidden;
 	position: absolute;
 	top: 0;
-	left: 0;
+  left: 0;
 }
 
 .front {
 	z-index: 2;
-	transform: rotateY(0deg);
+  transform: rotateY(0deg);
 }
 
 .back {
-	transform: rotateY(180deg);
+  transform: rotateY(180deg);
+ 
 }
 
 .profile {
