@@ -12,15 +12,10 @@ class Quiz extends Component {
           allEmoji: [],
           userCollection: [],
           emoji: {id: 0, name: '', image: '', level: 0},
-<<<<<<< HEAD
           letters: 3,
           remaining: 'cow',
           status: 'neutral',
           userInfo: []
-=======
-          letters: 0,
-          remaining: ''
->>>>>>> a94562836dcf38100d361becd6af8c2d546edc3e
         }
       }
 
@@ -89,15 +84,10 @@ class Quiz extends Component {
           <div className="flip-container">
           <div className="flipper">
             <div className="front">
-<<<<<<< HEAD
               <QuizEmoji name={this.state.emoji.name}
                           image={this.state.emoji.image}
                           status={this.state.status}/>
               <span className="quiz-letters">{this.renderCorrectLetters()}</span>
-=======
-              <div className="emoji-lg" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.image}</div>
-              <div className="quiz-letters">{this.renderCorrectLetters()}</div>
->>>>>>> a94562836dcf38100d361becd6af8c2d546edc3e
             </div>
             <div className="back">
             <div className="emoji-lg">{this.state.emoji.name}</div>
