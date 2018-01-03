@@ -72,14 +72,14 @@ class Story extends Component {
   render() {
 
     return (
-    <div>
+    <main>
       <div className="sidebar">
-        {this.state.userEmojis.map(el => <div key={el.id}>{el.image}</div> )}
+        {this.state.userEmojis.map(el => <div key={el.id} className='emoji'>{el.image}</div> )}
       </div>
       <div className="story">
         {this.state.story.text.map((el,i) => <span key={i} onClick ={(e) => this.gameplay(e)}>{el} </span>)}
       </div>
-    </div>
+    </main>
     )
   }
 }

@@ -72,11 +72,11 @@ class Quiz extends Component {
           <div className="flip-container">
           <div className="flipper">
             <div className="front">
-              <span className="emoji-lg" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.image}</span>
-              <span className="quiz-letters">{this.renderCorrectLetters()}</span>
+              <div className="emoji-lg" role="img" aria-label={this.state.emoji.name}> {this.state.emoji.image}</div>
+              <div className="quiz-letters">{this.renderCorrectLetters()}</div>
             </div>
             <div className="back">
-            <span className="emoji-lg">{this.state.emoji.name}</span>
+            <div className="emoji-lg">{this.state.emoji.name}</div>
             </div>
             </div>
           </div>
