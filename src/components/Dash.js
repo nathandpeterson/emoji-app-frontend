@@ -21,6 +21,7 @@ class Dash extends Component {
                   userInfo: []
                 }
   }
+
   renderQuiz = () => {
     //this method checks state to see if quiz has been clicked, renders it if so
     const currentState = Object.assign({}, this.state)
@@ -130,7 +131,7 @@ class Dash extends Component {
 
 
   render() {
-    console.log('inside the dash render', this.props)
+
     return (
       <div>
         {this.state.profile && <Profile

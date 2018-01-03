@@ -4,15 +4,22 @@ import '../App.css'
 class Story extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       allEmoji: this.props.allEmoji,
-      userEmojis: this.props.userCollection,
+      userEmojis: this.userEmojis(this.props.userCollection, this.props.allEmoji),
       story: {
         emojis: [],
         text: [],
       },
       userStories: []
     }
+  }
+
+  userEmojis = (numbers, objects)=> {
+    const result = objects.filter(el => numbers.includes(el.id))
+    console.log(result)
+    return result
   }
 
 
@@ -35,12 +42,9 @@ class Story extends Component {
   }
 
   async componentDidMount(){
-    //console.log(this.props.userEmojis)
     const story = await this.getStories()
     const text = this.formatStory(story.story)
-    // console.log(text);
     const storyEmojis = this.findEmojis(text, this.props.userCollection)
-    // console.log(storyEmojis);
     this.setState({
       story: {
         text: text,
@@ -70,7 +74,6 @@ class Story extends Component {
   }
 
   render() {
-
     return (
     <main>
       <div className="sidebar">

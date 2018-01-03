@@ -45,7 +45,7 @@ class Quiz extends Component {
     const currentState = Object.assign({}, this.state)
     this.setState({...currentState, status: 'wrong'})
   }
-  
+
   resetEmoji = () => {
     const currentState = Object.assign({}, this.state)
     //Resets to a random emoji not in the current player's collection
@@ -59,7 +59,7 @@ class Quiz extends Component {
                       remaining: currentEmoji.name,
                       status: 'neutral'})
   }
-  
+
   winEmoji = async (id) => {
     //POST win to the server and add an animation and success message.
     console.log('WIN!!!!!',this.state)
@@ -78,6 +78,7 @@ class Quiz extends Component {
   }
 
   render() {
+    console.log(this.state.emoji)
     return (
       <FadeIn>
          <div className="game-container">
@@ -93,7 +94,7 @@ class Quiz extends Component {
             <div className="emoji-lg">{this.state.emoji.name}</div>
             </div>
             </div>
-          </div>        
+          </div>
           <Button onClick={this.resetEmoji}> RANDOM </Button>
         <Keyboard
         emoji={this.state.emoji}
