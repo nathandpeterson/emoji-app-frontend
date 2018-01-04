@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Key from './Key.js'
 import shuffle from 'lodash/shuffle'
 import uniq from 'lodash/uniq'
@@ -16,13 +16,25 @@ const buildKeyboard = (emojiName) => {
   let ourUniqueLetters = uniq(ourLetters)
   let ourShuffledLetters = shuffle(ourUniqueLetters)
   return ourShuffledLetters
-} 
+}
 
-const Keyboard = ({emoji, gameplay, remaining, letters, wrongLetter}) => {
-  let keys = buildKeyboard(emoji.name) 
+class Keyboard extends Component {
+  constructor({emoji, gameplay, remaining, letters, wrongLetter}){
+    super()
+    this.state = {word: '',
+                  keyboard: []}
+  }
+
+  componentWillReceiveProps({emoji}){
+    let keyboard = buildKeyboard(emoji.name)
+    if(!this.state.keyboard.length) this.setState({word: emoji.name, keyboard})
+    if(this.state.word !== emoji.name) this.setState({word: emoji.name, keyboard})
+  }
+
+  render() {
+  const {emoji, gameplay, remaining, wrongLetter} = this.props
+  let keys = this.state.keyboard
   return (
-    <div>
-      <div>We are spelling:  {emoji.name}</div>
       <div className = "keyboard">
         {keys.map(el =>
           <Key key={el}
@@ -32,8 +44,9 @@ const Keyboard = ({emoji, gameplay, remaining, letters, wrongLetter}) => {
           remaining={remaining}
           wrongLetter={ wrongLetter }/>)}
       </div>
-    </div>
   )
+  }
 }
+
 
 export default Keyboard
