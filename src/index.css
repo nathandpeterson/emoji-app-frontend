@@ -37,8 +37,13 @@ body {
 
 .quiz-letters {
   font-size: 3rem;
-  background: white;
+  background:white;
+  color:#FF9A17;
   border-radius: 2px;
+}
+
+.correct-letter {
+  margin: .75rem;
 }
 
 .flip-container:hover .flipper, .flip-container.hover .flipper {

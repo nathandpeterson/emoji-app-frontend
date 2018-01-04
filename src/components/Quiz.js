@@ -78,9 +78,15 @@ class Quiz extends Component {
 
   renderCorrectLetters = () => {
       let remaining = this.state.remaining || 6
-      let word = this.state.emoji.name || 'ERROR'
+      let word = this.state.emoji.name || ''
       let difference = word.length - remaining.length
-      return word.slice(0, difference)
+      let current = word.slice(0, difference)
+      return current.toUpperCase().split('')
+  }
+
+  correctLetterAnimation = () => {
+    let tada = 'tada'
+    return tada
   }
 
   renderWin = () => (
@@ -92,7 +98,6 @@ class Quiz extends Component {
   )
 
   render() {
-    console.log(this.state.emoji)
     return (
       <FadeIn>
         <Row>
@@ -100,11 +105,15 @@ class Quiz extends Component {
          <div className="emoji-small">{!this.state.remaining && this.renderWin()}</div>
           <div className="flip-container">
           <div className="flipper">
-            <div className="front">
+            <div className="front animated tada">
               <QuizEmoji name={this.state.emoji.name}
                           image={this.state.emoji.image}
                           status={this.state.status}/>
-              <span className="quiz-letters">{this.renderCorrectLetters()}</span>
+              <span className="quiz-letters">
+                {this.renderCorrectLetters().map((letter, i)=> {
+                  return <span key={i} className={`correct-letter animated ${this.correctLetterAnimation()}`}>{letter}</span>
+                })}
+              </span>
             </div>
             <div className="back">
               <div className="flip-letters">{this.state.emoji.name}</div>
