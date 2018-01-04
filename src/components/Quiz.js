@@ -4,6 +4,7 @@ import Keyboard from './Keyboard'
 import FadeIn from 'react-fade-in'
 import {Button, Row, Col} from 'react-materialize'
 import QuizEmoji from './QuizEmoji'
+import WinQuiz from './WinQuiz'
 
 class Quiz extends Component {
     constructor(props){
@@ -83,10 +84,19 @@ class Quiz extends Component {
       return word.slice(0, difference)
   }
 
+  renderWin = () => (
+    <div>
+      <FadeIn>
+    🌟 Hooray!🌟
+      </FadeIn>
+   </div>
+  )
+
   render() {
     return (
       <FadeIn>    
          <div className="game-container">
+         <div className="emoji-med">{!this.state.remaining && this.renderWin()}</div>
           <div className="flip-container">
           <div className="flipper">
             <div className="front">
