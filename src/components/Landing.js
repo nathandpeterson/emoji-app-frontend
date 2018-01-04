@@ -25,7 +25,6 @@ class Landing extends Component {
               <div className="emoji-container">
               <span className="emoji-med" role="img" aria-label="Cat">🐱</span>
               </div>
-
               </div>
               <div className="back">
                 <div className="emoji-small">Cat</div>
@@ -39,23 +38,18 @@ class Landing extends Component {
             </div>
           </Col>
           <Col s={4}>
-       
-
             <div className="flip-container">
               <div className="flipper">
                 <div className="front">
                   <div className="emoji-container">
                     <span className="emoji-med" role="img" aria-label="Robot">🤖</span>
                   </div>
-
                 </div>
                 <div className="back">
                   <div className="emoji-small">Robot</div>
                 </div>
               </div>
             </div>
-
-
           </Col>
         </Row>
         <Row>
@@ -66,7 +60,6 @@ class Landing extends Component {
               <div className="emoji-container">
               <span className="emoji-med" role="img" aria-label="Dinosaur">🦖</span>
               </div>
-
               </div>
               <div className="back">
                 <div className="emoji-small">Dinosaur</div>
@@ -90,12 +83,9 @@ class Landing extends Component {
         </Row>
         <Row>
           <Col s={4}>
-
           <div className="emoji-container">
               <span className="emoji-med" role="img" aria-label="Rocket">🚀</span>
             </div>
-
-    
           </Col>
           <Col s={4}>
             <div className="emoji-container">
@@ -103,21 +93,18 @@ class Landing extends Component {
             </div>
           </Col>
           <Col s={4}>
-
             <div className="flip-container">
               <div className="flipper">
                 <div className="front">
                   <div className="emoji-container">
                     <span className="emoji-med" role="img" aria-label="Monkey">🐒</span>
                   </div>
-
                 </div>
                 <div className="back">
                   <div className="emoji-small">Monkey</div>
                 </div>
               </div>
             </div>
-
           </Col>
         </Row>
       </div>
