@@ -51,6 +51,12 @@ body {
   margin: auto;
 }
 
+.flip-container-landing, .front, .back {
+  width: 15rem;
+  height: 20rem;
+  margin: auto;
+}
+
 .flipper {
 	transition: 0.6s;
 	transform-style: preserve-3d;
