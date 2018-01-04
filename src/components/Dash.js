@@ -18,7 +18,8 @@ class Dash extends Component {
                   emoji: false,
                   allEmoji: [],
                   userCollection: [],
-                  userInfo: []
+                  userInfo: [],
+                  userEmojis: []
                 }
   }
 
@@ -92,6 +93,10 @@ class Dash extends Component {
     return json.results
   }
 
+  userEmojis = (numbers, objects) => {
+    return objects.filter(el => numbers.includes(el.id))
+  }
+
   filterEmoji = () => {
     // Filters all emojis against emojis in the user's collection by emoji ID
     // Returns only uncollected emojis
@@ -122,7 +127,8 @@ class Dash extends Component {
     const currentState = Object.assign({}, this.state)
     const allEmoji = await this.getAllEmoji()
     const userCollection = await this.getUserEmoji(userID)
-    await this.setState({...currentState, allEmoji, userCollection})
+    const userEmojis = await this.userEmojis(userCollection, allEmoji)
+    await this.setState({...currentState, allEmoji, userCollection, userEmojis})
   }
 
   componentDidMount = async () => {
@@ -157,11 +163,9 @@ class Dash extends Component {
           winEmoji={ this.winEmoji }/>}
 
         {this.state.story && <Story
-          getAllEmoji={this.getAllEmoji}
-          getUserEmoji={this.getUserEmoji}
-          filterEmoji={this.filterEmoji}
+          userInfo={ this.props.userInfo }
           allEmoji={ this.state.allEmoji }
-          userCollection ={ this.state.userCollection }/>}
+          userEmojis ={ this.state.userEmojis }/>}
       </div>
     )
   }
