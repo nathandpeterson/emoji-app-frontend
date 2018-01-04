@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import FadeIn from 'react-fade-in'
+const API = process.env.REACT_APP_API_URL
 
 class Emoji extends Component {
     constructor(){
@@ -11,7 +12,7 @@ class Emoji extends Component {
       }
       getAllEmoji = async () => {
         //This method should filter and only pull the current user's emoji
-        let results = await fetch('http://localhost:3030/api/emoji')
+        let results = await fetch(`${API}/emoji`)
         let json = await results.json()
         return json
       }

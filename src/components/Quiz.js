@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import Keyboard from './Keyboard'
 import FadeIn from 'react-fade-in'

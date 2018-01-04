@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../App.css'
+const API = process.env.REACT_APP_API_URL
 
 class Story extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class Story extends Component {
 
 //currently only returns the first story in the DB
   async getStories() {
-    const stories = await fetch("http://localhost:3030/api/stories")
+    const stories = await fetch(`${API}/stories`)
     const response = await stories.json()
     return response.results[0]
   }

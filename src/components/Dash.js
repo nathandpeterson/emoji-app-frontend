@@ -6,6 +6,7 @@ import Profile from './Profile'
 import {Card, CardTitle, Button} from 'react-materialize'
 import FadeIn from 'react-fade-in'
 import Spinner from './Spinner'
+const API = process.env.REACT_APP_API_URL
 
 class Dash extends Component {
 
@@ -80,13 +81,13 @@ class Dash extends Component {
   }
   getAllEmoji = async () => {
     //Grabs all emoji from server/db
-    let results = await fetch('http://localhost:3030/api/emoji')
+    let results = await fetch(`${API}/emoji`)
     let json = await results.json()
     return json.results
   }
 
   getUserEmoji = async (userID) => {
-    let results = await fetch(`http://localhost:3030/api/emoji/${userID}`)
+    let results = await fetch(`${API}/emoji/${userID}`)
     let json = await results.json()
     return json.results
   }
@@ -100,15 +101,13 @@ class Dash extends Component {
   }
 
   winEmoji = async (userId, emojiId) => {
-    let response = await fetch(`http://localhost:3030/api/users/${userId}`,
+    let response = await fetch(`${API}/users/${userId}`,
                                {body: JSON.stringify({emoji_id: emojiId}),
                                 method: 'POST',
                                 headers: {'Content-Type': 'application/json'}
                                 })
     let json = await response.json()
     await this.refreshUserCollection(userId)
-    console.log('just won! here is the post result', json)
-
     // After posting, setState with new collection
   }
 
@@ -130,7 +129,6 @@ class Dash extends Component {
 
 
   render() {
-    console.log('inside the dash render', this.props)
     return (
       <div>
         {this.state.profile && <Profile
