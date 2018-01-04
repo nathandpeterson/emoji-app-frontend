@@ -27,12 +27,15 @@ class Story extends Component {
     const foundIt = this.props.userEmojis.find(el => el.name === e.target.innerHTML)
     if(foundIt){
       e.target.innerHTML = foundIt.image
-      let situation = Object.assign({}, this.state)
-      const storyEmojis = situation.story.emojis
-      storyEmojis.splice(storyEmojis.indexOf(foundIt), 1)
-      this.setState({story: {emojis: storyEmojis}})
     }
   }
+
+//setState for gameplay
+// let situation = Object.assign({}, this.state)
+// const storyEmojis = situation.story.emojis
+// storyEmojis.splice(storyEmojis.indexOf(foundIt), 1)
+// this.setState({story: {emojis: storyEmojis}})
+
 
 //checks which emojis in the story match user emojis
   findEmojis = (story, user_emojis) => {
