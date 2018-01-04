@@ -25,7 +25,13 @@ class Story extends Component {
 //on click, word is replaced by an emoji, if user has a matching one
   gameplay = (e) => {
     const foundIt = this.props.userEmojis.find(el => el.name === e.target.innerHTML)
-    if(foundIt) e.target.innerHTML = foundIt.image
+    if(foundIt){
+      e.target.innerHTML = foundIt.image
+      let situation = Object.assign({}, this.state)
+      const storyEmojis = situation.story.emojis
+      storyEmojis.splice(storyEmojis.indexOf(foundIt), 1)
+      this.setState({story: {emojis: storyEmojis}})
+    }
   }
 
 //checks which emojis in the story match user emojis
@@ -73,7 +79,7 @@ class Story extends Component {
       const userStories = await this.getStoriesByUser(this.props.userInfo.id)
       const story = this.pickOneStory(allStories, userStories)
       const text = this.formatStory(story)
-      const storyEmojis = this.findEmojis(text, this.props.allEmoji)
+      const storyEmojis = this.findEmojis(text, this.props.userEmojis)
       this.setState({
         story: {
           text: text,
@@ -85,7 +91,6 @@ class Story extends Component {
     }
 
   render() {
-    console.log(this.state);
     return (
     <main>
       <div className="sidebar">
