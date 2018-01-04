@@ -45,7 +45,7 @@ class Quiz extends Component {
     const currentState = Object.assign({}, this.state)
     this.setState({...currentState, status: 'wrong'})
   }
-  
+
   resetEmoji = () => {
     const currentState = Object.assign({}, this.state)
     //Resets to a random emoji not in the current player's collection
@@ -59,7 +59,7 @@ class Quiz extends Component {
                       remaining: currentEmoji.name,
                       status: 'neutral'})
   }
-  
+
   winEmoji = async (id) => {
     //POST win to the server and add an animation and success message.
     this.props.winEmoji(id, this.state.emoji.id)
@@ -74,7 +74,7 @@ class Quiz extends Component {
     let quizEmoji = document.querySelector('#quiz-emoji')
     quizEmoji.classList.remove('zoomOutUp')
     quizEmoji.classList.add('zoomInDown')
-  }  
+  }
 
   renderCorrectLetters = () => {
       let remaining = this.state.remaining || 6
@@ -92,9 +92,10 @@ class Quiz extends Component {
   )
 
   render() {
+    console.log(this.state.emoji)
     return (
       <FadeIn>
-        <Row>    
+        <Row>
          <div className="game-container">
          <div className="emoji-small">{!this.state.remaining && this.renderWin()}</div>
           <div className="flip-container">
