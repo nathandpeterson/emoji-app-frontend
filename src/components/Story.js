@@ -8,6 +8,7 @@ class Story extends Component {
     this.state = {
       allEmoji: this.props.allEmoji,
       story: {
+        id: 0,
         emojis: [],
         text: [],
       },
@@ -21,14 +22,11 @@ class Story extends Component {
 //////////////////////
 
 matchElement = (action, array, property) => {
-  console.log(action.target.innerHTML);
-  console.log(array);
-  console.log(property);
   return array.find(el => el[property] === action.target.innerHTML)
 }
 
 randomize = (array) => {
-  let randomIndex = Math.floor(Math.random()* array.length)
+  let randomIndex = Math.floor(Math.random() * array.length)
   return array[randomIndex]
 }
 
@@ -42,20 +40,31 @@ randomize = (array) => {
     pickOneStory = (stories, ids) => {
       const onlyNewStories = ids.filter(el => !el.includes(stories.id))
       const story = this.randomize(stories)
-      return story.story
+      return story
     }
   //makes the story string into an array
     formatStory = (story) => {
       return story.match(/[\w]+|[^\w]*/gi)
     }
-  //checks which emojis in the story match user emojis
+  //checks which emojis in the story match user's emojis so we know when to end gameplay
     findEmojis = (story, user_emojis) => {
       let result = []
       for (let i = 0; i < story.length; i++) {
         const goal = user_emojis.find(el => el.name === story[i])
         if(goal)result.push(goal)
       }
-      return result
+      if(result.length === 0) alert("ohnoes, you have no matching emojis!");  return result
+    }
+
+    storyPreparation = (allStories, userStories) => {
+      const story = this.pickOneStory(allStories, userStories)
+      const text = this.formatStory(story.story)
+      const storyEmojis = this.findEmojis(text, this.props.userEmojis)
+      return {
+        id: story.id,
+        text: text,
+        emojis: storyEmojis
+      }
     }
 
 //THIS IS WHERE THE ACTION HAPPENS:
@@ -78,8 +87,12 @@ randomize = (array) => {
     const storyEmojis = situation.story.emojis
     const foundIt = this.matchElement(e, storyEmojis, 'image')
     storyEmojis.splice(storyEmojis.indexOf(foundIt), 1)
-
-
+    if(storyEmojis.length === 0) {
+      console.log("success story")
+      situation.userStories.push(situation.story.id)
+      this.storyPreparation(situation.allStories, situation.userStories)
+      this.setState(situation)
+    }
   }
 
 //////////////////////
@@ -92,24 +105,32 @@ randomize = (array) => {
     const response = await stories.json()
     return response.results
   }
+
   async getStoriesByUser(id) {
     const userStories = await fetch(`http://localhost:3030/api/stories/users/${id}`)
     const response = await userStories.json()
     return response.results
   }
 
+  // async updateStoriesByUser(user_id, story_id){
+  //   const userStories = await fetch(`http://localhost:3030/api/stories/users/${id}`, {
+  //       body: JSON.stringify({story_id}),
+  //       method: 'POST',
+  //       headers: {'Content-Type': 'application/json'}
+  //     })
+  //   )
+  //   const response = await userStories.json()
+  //   return response.results
+  // }
+
 //UPDATE
     async componentDidMount(){
       const allStories = await this.getStories()
       const userStories = await this.getStoriesByUser(this.props.userInfo.id)
-      const story = this.pickOneStory(allStories, userStories)
-      const text = this.formatStory(story)
-      const storyEmojis = this.findEmojis(text, this.props.userEmojis)
+      const story = this.storyPreparation(allStories, userStories)
+
       this.setState({
-        story: {
-          text: text,
-          emojis: storyEmojis
-        },
+        story,
         allStories: allStories,
         userStories: userStories
       })
