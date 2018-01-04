@@ -19,7 +19,7 @@ class Landing extends Component {
       <div className='landing'>
         <Row>
           <Col s={4}>
-          <div className="flip-container-landing">
+          <div className="flip-container">
           <div className="flipper">
             <div className="front">
               <div className="emoji-container">
@@ -41,7 +41,7 @@ class Landing extends Component {
           <Col s={4}>
        
 
-            <div className="flip-container-landing">
+            <div className="flip-container">
               <div className="flipper">
                 <div className="front">
                   <div className="emoji-container">
@@ -60,7 +60,7 @@ class Landing extends Component {
         </Row>
         <Row>
           <Col s={4}>
-          <div className="flip-container-landing">
+          <div className="flip-container">
           <div className="flipper">
             <div className="front">
               <div className="emoji-container">
@@ -104,7 +104,7 @@ class Landing extends Component {
           </Col>
           <Col s={4}>
 
-            <div className="flip-container-landing">
+            <div className="flip-container">
               <div className="flipper">
                 <div className="front">
                   <div className="emoji-container">
