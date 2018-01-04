@@ -87,16 +87,17 @@ class Quiz extends Component {
   renderWin = () => (
     <div>
       <FadeIn>
-    🌟 Hooray!🌟
+        <WinQuiz />
       </FadeIn>
    </div>
   )
 
   render() {
     return (
-      <FadeIn>    
+      <FadeIn>
+        <Row>    
          <div className="game-container">
-         <div className="emoji-med">{!this.state.remaining && this.renderWin()}</div>
+         <div className="emoji-small">{!this.state.remaining && this.renderWin()}</div>
           <div className="flip-container">
           <div className="flipper">
             <div className="front">
@@ -106,11 +107,13 @@ class Quiz extends Component {
               <span className="quiz-letters">{this.renderCorrectLetters()}</span>
             </div>
             <div className="back">
-            <div className="flip-letters">{this.state.emoji.name}</div>
-            </div>
+              <div className="flip-letters">{this.state.emoji.name}</div>
+              </div>
             </div>
           </div>
-         
+        </div>
+        </Row>
+        <br />
         <Keyboard
         emoji={this.state.emoji}
         gameplay={this.gameplay}
@@ -118,9 +121,7 @@ class Quiz extends Component {
         letters={this.state.letters}
         wrongLetter={ this.wrongLetter }
         status={ this.state.status }/>
-        </div>
         <Button onClick={this.resetEmoji}> NEXT </Button>
-         
       </FadeIn>
     );
   }

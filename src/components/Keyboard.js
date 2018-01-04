@@ -30,13 +30,11 @@ class Keyboard extends Component {
     if(!this.state.keyboard.length) this.setState({word: emoji.name, keyboard})
     if(this.state.word !== emoji.name) this.setState({word: emoji.name, keyboard})
   }
-  
+
   render() {
   const {emoji, gameplay, remaining, wrongLetter} = this.props
   let keys = this.state.keyboard
   return (
-    <div>
-      <div>We are spelling:  {emoji.name}</div>
       <div className = "keyboard">
         {keys.map(el =>
           <Key key={el}
@@ -46,7 +44,6 @@ class Keyboard extends Component {
           remaining={remaining}
           wrongLetter={ wrongLetter }/>)}
       </div>
-    </div>
   )
   }
 }
