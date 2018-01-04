@@ -16,67 +16,89 @@ class Story extends Component {
     }
   }
 
-  // userEmojis = ()=> {
-  //   const result = this.props.allEmoji.filter(el => this.props.userCollection.includes(el.id))
-  //   return result
-  // }
+//////////////////////
+// HELPER FUNCTIONS //
+//////////////////////
 
+matchElement = (action, array, property) => {
+  console.log(action.target.innerHTML);
+  console.log(array);
+  console.log(property);
+  return array.find(el => el[property] === action.target.innerHTML)
+}
 
-//on click, word is replaced by an emoji, if user has a matching one
-  gameplay = (e) => {
-    const foundIt = this.props.userEmojis.find(el => el.name === e.target.innerHTML)
-    if(foundIt){
-      e.target.innerHTML = foundIt.image
+randomize = (array) => {
+  let randomIndex = Math.floor(Math.random()* array.length)
+  return array[randomIndex]
+}
+
+////////////////////
+// GAME DYNAMICS //
+///////////////////
+
+// PRELIMINARIES:
+
+  //Picks a random story that the user hasn't seen before
+    pickOneStory = (stories, ids) => {
+      const onlyNewStories = ids.filter(el => !el.includes(stories.id))
+      const story = this.randomize(stories)
+      return story.story
     }
+  //makes the story string into an array
+    formatStory = (story) => {
+      return story.match(/[\w]+|[^\w]*/gi)
+    }
+  //checks which emojis in the story match user emojis
+    findEmojis = (story, user_emojis) => {
+      let result = []
+      for (let i = 0; i < story.length; i++) {
+        const goal = user_emojis.find(el => el.name === story[i])
+        if(goal)result.push(goal)
+      }
+      return result
+    }
+
+//THIS IS WHERE THE ACTION HAPPENS:
+
+  //on click, word is replaced by an emoji, if user has a matching one
+    gameplay = (e) => {
+      const foundIt = this.matchElement(e, this.props.userEmojis, 'name')
+      if(foundIt){
+        e.target.innerHTML = foundIt.image
+        ////////////////////LENA'S CHANGES///////////////////////////
+        this.storyState(e)
+      }
+    }
+
+//MANIPULATES STATE:
+
+//setState in the gameplay
+  storyState = (e) => {
+    let situation = Object.assign({}, this.state)
+    const storyEmojis = situation.story.emojis
+    const foundIt = this.matchElement(e, storyEmojis, 'image')
+    storyEmojis.splice(storyEmojis.indexOf(foundIt), 1)
+
+
   }
 
-//setState for gameplay
-// let situation = Object.assign({}, this.state)
-// const storyEmojis = situation.story.emojis
-// storyEmojis.splice(storyEmojis.indexOf(foundIt), 1)
-// this.setState({story: {emojis: storyEmojis}})
+//////////////////////
+// DATA & RENDERING //
+//////////////////////
 
-
-//checks which emojis in the story match user emojis
-  findEmojis = (story, user_emojis) => {
-    let result = []
-    for (let i = 0; i < story.length; i++) {
-      const goal = user_emojis.find(el => el.name === story[i])
-      if(goal)result.push(goal)
-    }
-    return result
-  }
-
+//ACQUIRE DATA:
   async getStories() {
     const stories = await fetch("http://localhost:3030/api/stories")
     const response = await stories.json()
     return response.results
   }
-
-  //Picks a random story that the user hasn't seen before
-  pickOneStory = (stories, ids) => {
-    const onlyNewStories = ids.filter(el => !el.includes(stories.id))
-    const story = this.randomize(stories)
-    return story.story
-  }
-
-  randomize = (array) => {
-    let randomIndex = Math.floor(Math.random()*array.length)
-    return array[randomIndex]
-  }
-
   async getStoriesByUser(id) {
     const userStories = await fetch(`http://localhost:3030/api/stories/users/${id}`)
     const response = await userStories.json()
     return response.results
   }
 
-//makes the story string into an array
-  formatStory = (story) => {
-    return story.match(/[\w]+|[^\w]*/gi)
-  }
-
-
+//UPDATE
     async componentDidMount(){
       const allStories = await this.getStories()
       const userStories = await this.getStoriesByUser(this.props.userInfo.id)
