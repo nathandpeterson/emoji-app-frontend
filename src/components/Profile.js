@@ -6,7 +6,7 @@ const API = process.env.REACT_APP_API_URL
 class Profile extends Component {
   constructor(props){
     super(props)
-    this.state = {userInfo: [], avatar:false, avatarEmoji: ''}
+    this.state = {userInfo: this.props.userInfo, avatar:false, avatarEmoji: this.props.userInfo.avatar}
   }
   
   componentWillReceiveProps(){
@@ -36,6 +36,12 @@ class Profile extends Component {
     return this.state.avatarEmoji ? <span className="animated fadeInUpBig">{this.state.avatarEmoji} </span> : <img className= "profile avatar" src = {user.picture}></img>
   }
 
+  async componentDidMount() {
+    const userInfo = await this.props.checkForUser(this.props.user)
+    const currentState = Object.assign({}, this.state)
+    this.setState({...currentState, userInfo, avatarEmoji: userInfo.avatar})
+  }
+
   render(){
     const {user, userCollection, allEmoji, userInfo} = this.props
     return (
@@ -48,7 +54,9 @@ class Profile extends Component {
               </CardPanel>
             <h6>You have collected <Chip>{userCollection.length}/{allEmoji.length}</Chip> emoji.</h6>
             {this.renderAvatar(user)}
+            <Row>
             {this.renderAvatarButton()}
+            </Row>
             </Card>
           </div>
         </Col>
