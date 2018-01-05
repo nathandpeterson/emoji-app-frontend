@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import '../App.css'
+
 const API = process.env.REACT_APP_API_URL
+
+import FadeIn from 'react-fade-in'
 
 class Story extends Component {
   constructor(props) {
@@ -140,6 +143,7 @@ randomize = (array) => {
 
   render() {
     return (
+      <FadeIn>
     <main>
       <div className="sidebar">
         {this.props.userEmojis.map(el => <div key={el.id} className='emoji'>{el.image}</div> )}
@@ -148,6 +152,7 @@ randomize = (array) => {
           this.state.story.text.map((el,i) => <span key={i} onClick ={(e) => this.gameplay(e)}>{el}</span>)}
       </div>
     </main>
+    </FadeIn>
     )
   }
 }
