@@ -22,7 +22,7 @@ class Story extends Component {
 //////////////////////
 
 matchElement = (action, array, property) => {
-  return array.find(el => el[property] === action.target.innerHTML)
+  return array.find(el => el[property] === action.target.innerHTML.toLowerCase())
 }
 
 randomize = (array) => {
@@ -38,8 +38,8 @@ randomize = (array) => {
 
   //Picks a random story that the user hasn't seen before
     pickOneStory = (stories, ids) => {
-      const onlyNewStories = ids.filter(el => !el.includes(stories.id))
-      const story = this.randomize(stories)
+      const onlyNewStories = stories.filter(el => !ids.includes(el.id))
+      const story = this.randomize(onlyNewStories)
       return story
     }
   //makes the story string into an array
@@ -50,7 +50,7 @@ randomize = (array) => {
     findEmojis = (story, user_emojis) => {
       let result = []
       for (let i = 0; i < story.length; i++) {
-        const goal = user_emojis.find(el => el.name === story[i])
+        const goal = user_emojis.find(el => el.name === story[i].toLowerCase())
         if(goal)result.push(goal)
       }
       if(result.length === 0) alert("ohnoes, you have no matching emojis!");  return result
@@ -60,6 +60,7 @@ randomize = (array) => {
       const story = this.pickOneStory(allStories, userStories)
       const text = this.formatStory(story.story)
       const storyEmojis = this.findEmojis(text, this.props.userEmojis)
+      console.log(storyEmojis);
       return {
         id: story.id,
         text: text,
@@ -90,11 +91,11 @@ randomize = (array) => {
     if(storyEmojis.length === 0) {
       console.log("success story")
       situation.userStories.push(situation.story.id)
-      this.storyPreparation(situation.allStories, situation.userStories)
-      this.setState(situation)
+      situation.story = this.storyPreparation(situation.allStories, situation.userStories)
+      setTimeout(() => this.setState(situation), 1500)
     }
   }
-
+  
 //////////////////////
 // DATA & RENDERING //
 //////////////////////
@@ -112,16 +113,16 @@ randomize = (array) => {
     return response.results
   }
 
-  // async updateStoriesByUser(user_id, story_id){
-  //   const userStories = await fetch(`http://localhost:3030/api/stories/users/${id}`, {
-  //       body: JSON.stringify({story_id}),
-  //       method: 'POST',
-  //       headers: {'Content-Type': 'application/json'}
-  //     })
-  //   )
-  //   const response = await userStories.json()
-  //   return response.results
-  // }
+  async updateStoriesByUser(user_id, story_id){
+    const userStories = await fetch(`http://localhost:3030/api/stories/users/${user_id}`, {
+        body: JSON.stringify({story_id}),
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'}
+      })
+
+    const response = await userStories.json()
+    return response.results
+  }
 
 //UPDATE
     async componentDidMount(){
@@ -131,8 +132,8 @@ randomize = (array) => {
 
       this.setState({
         story,
-        allStories: allStories,
-        userStories: userStories
+        allStories,
+        userStories
       })
     }
 
@@ -142,9 +143,10 @@ randomize = (array) => {
       <div className="sidebar">
         {this.props.userEmojis.map(el => <div key={el.id} className='emoji'>{el.image}</div> )}
       </div>
-      <div className="story">
-        {this.state.story.text.map((el,i) => <span key={i} onClick ={(e) => this.gameplay(e)}>{el}</span>)}
+      <div className="story">{
+          this.state.story.text.map((el,i) => <span key={i} onClick ={(e) => this.gameplay(e)}>{el}</span>)}
       </div>
+
     </main>
     )
   }
