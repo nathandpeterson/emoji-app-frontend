@@ -9,12 +9,11 @@ class Landing extends Component {
     }
   }
   startButton = () => {
-    this
-      .props
-      .loginClick()
+    // this.props.loginClick()
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className='landing'>
         <Row>
@@ -72,7 +71,7 @@ class Landing extends Component {
               <CollectionItem active className="name-card">WORD RUMPUS</CollectionItem>
             </Collection>
             <Button
-              onClick={(e) => this.startButton()}
+              onClick={this.startButton}
               className="landing-button animated tada">Play</Button>
           </Col>
           <Col s={4}>

@@ -35,7 +35,7 @@ class Keyboard extends Component {
   const {emoji, gameplay, remaining, wrongLetter} = this.props
   let keys = this.state.keyboard
   return (
-      <div className = "keyboard">
+      <div className="keyboard">
         {keys.map(el =>
           <Key key={el}
           letter={el}

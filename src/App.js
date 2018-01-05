@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 import Keyboard from './components/Keyboard.js'
 import Auth0Lock from 'auth0-lock'
 import {Button} from 'react-materialize'
@@ -7,6 +7,7 @@ import Header from './components/Header.js'
 import Landing from './components/Landing'
 import Dash from './components/Dash'
 import Spinner from './components/Spinner'
+const API = process.env.REACT_APP_API_URL
 
 class App extends Component {
   constructor(){
@@ -44,7 +45,7 @@ class App extends Component {
   }
 
   checkForUser = async (profile) => {
-    let userExists = await fetch(`http://localhost:3030/api/users`,                     
+    let userExists = await fetch(`${API}/users`,                     
                                   {body: JSON.stringify({email: profile.email}),
                                   method: 'POST',
                                   headers: {'Content-Type': 'application/json'}
@@ -52,6 +53,7 @@ class App extends Component {
     let json = await userExists.json()
     let currentState = await Object.assign({}, this.state)
     await this.setState({...currentState, userInfo: json})
+    return json
   }
 
   //function for setting token and profile data
@@ -114,7 +116,7 @@ class App extends Component {
       logoutClick={this.logout.bind(this)}
       loginClick={this.showModal.bind(this)}
       />
-      {this.state.accessToken && !this.state.userInfo.id ? <Spinner /> : null}
+      {this.state.accessToken && !this.state.userInfo.id ? <Spinner checkForUser={this.checkForUser} /> : null}
       {this.state.accessToken && this.state.userInfo.id ? this.renderDash() :
       <Landing loginClick={this.showModal}
                 lock={this.lock}
