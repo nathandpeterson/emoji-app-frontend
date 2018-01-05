@@ -53,6 +53,7 @@ class App extends Component {
     let json = await userExists.json()
     let currentState = await Object.assign({}, this.state)
     await this.setState({...currentState, userInfo: json})
+    return json
   }
 
   //function for setting token and profile data
@@ -115,7 +116,7 @@ class App extends Component {
       logoutClick={this.logout.bind(this)}
       loginClick={this.showModal.bind(this)}
       />
-      {this.state.accessToken && !this.state.userInfo.id ? <Spinner /> : null}
+      {this.state.accessToken && !this.state.userInfo.id ? <Spinner checkForUser={this.checkForUser} /> : null}
       {this.state.accessToken && this.state.userInfo.id ? this.renderDash() :
       <Landing loginClick={this.showModal}
                 lock={this.lock}

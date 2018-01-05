@@ -110,3 +110,7 @@ body {
 .win-emoji {
   transition: 1s;
 }
+
+.choose-avatar {
+  font-size: 1rem;
+}
