@@ -109,13 +109,13 @@ randomize = (array) => {
   }
 
   async getStoriesByUser(id) {
-    const userStories = await fetch(`http://localhost:3030/api/stories/users/${id}`)
+    const userStories = await fetch(`${API}/stories/users/${id}`)
     const response = await userStories.json()
     return response.results
   }
 
   async updateStoriesByUser(user_id, story_id){
-    const userStories = await fetch(`http://localhost:3030/api/stories/users/${user_id}`, {
+    const userStories = await fetch(`${API}/stories/users/${user_id}`, {
         body: JSON.stringify({story_id}),
         method: 'POST',
         headers: {'Content-Type': 'application/json'}
@@ -147,7 +147,6 @@ randomize = (array) => {
       <div className="story">{
           this.state.story.text.map((el,i) => <span key={i} onClick ={(e) => this.gameplay(e)}>{el}</span>)}
       </div>
-
     </main>
     )
   }

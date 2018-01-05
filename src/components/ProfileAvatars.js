@@ -6,7 +6,7 @@ const ProfileAvatars = ({allEmoji, postAvatar}) =>
     (
     <Col className="container">
         {allEmoji.map((emoji, i) => {
-            return <span onClick={(e) => postAvatar(e)} className="emoji-small" key={i}>{emoji.image}</span>
+            return <span onClick={(e) => postAvatar(e)} className="emoji" key={i}>{emoji.image}</span>
         })}
     </Col>
 )

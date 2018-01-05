@@ -11,7 +11,7 @@ class Profile extends Component {
   
   componentWillReceiveProps(){
     const currentState = Object.assign({}, this.state)
-    this.setState({...currentState, userInfo: this.props.userInfo, avatarEmoji: this.props.userInfo.avatar})
+    if(this.props.userInfo.avatar) this.setState({...currentState, userInfo: this.props.userInfo, avatarEmoji: this.props.userInfo.avatar})
   }
   renderAvatarButton(){
     return <Button onClick={this.handleClick} className="choose-avatar">CHOOSE AVATAR</Button>
@@ -33,11 +33,10 @@ class Profile extends Component {
     this.setState({...currentState, avatar: true})
   }
   renderAvatar = (user) => {
-    return this.state.avatarEmoji ? <span>{this.state.avatarEmoji} </span> : <img className= "profile avatar" src = {user.picture}></img>
+    return this.state.avatarEmoji ? <span className="animated fadeInUpBig">{this.state.avatarEmoji} </span> : <img className= "profile avatar" src = {user.picture}></img>
   }
 
   render(){
-    console.log('avatarEmoji', this.state.avatarEmoji)
     const {user, userCollection, allEmoji, userInfo} = this.props
     return (
       <Row>
