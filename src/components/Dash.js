@@ -45,22 +45,13 @@ class Dash extends Component {
   }
   renderEmoji = () => {
     //this method checks state to see if MY EMOJI btn has been clicked, renders it if so
-    const currentState = Object.assign({}, this.state)
-    this.state.emoji ?
-      this.setState({
-        ...currentState,
-        emoji:false,
-        quiz:false,
-        story:false,
-        profile:true
-      })
-      : this.setState({
-        ...currentState,
-        emoji: true,
-        quiz:false,
-        story:false,
-        profile:false
-      })
+    const currentState = Object.assign({}, this.state, { quiz: false, story: false })
+    // Keep your code DRY -- you could include this pattern in a few places on this page)
+    const nextState = this.state.emoji ? { emoji: false, profile: true } : { emoji: true, profile: false }
+    this.setState({
+      ...currentState,
+      ...nextState
+    })
   }
   renderStories = () => {
     //this method checks state to see if STORY btn has been clicked, renders it if so
