@@ -3,7 +3,7 @@ import {Button} from 'react-materialize'
 
 class Header extends Component {
     loginClick(){
-        //console.log('clickin')
+        // Remove dead code!
         this.props.loginClick()
     }
 
