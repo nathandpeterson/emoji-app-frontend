@@ -8,12 +8,11 @@ class Landing extends Component {
       emojis: {}
     }
   }
-  startButton = () => {
-    // this.props.loginClick()
-  }
+
+  // No dead code!
 
   render() {
-    console.log(this.props)
+    // Remove logs before you 
     return (
       <div className='landing'>
         <Row>
