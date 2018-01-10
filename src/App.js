@@ -13,7 +13,7 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      accessToken: '',
+      accessToken: '', // Do you need to store the access token in the state
       profile: {},
       userInfo: []
     }
@@ -45,11 +45,12 @@ class App extends Component {
   }
 
   checkForUser = async (profile) => {
-    let userExists = await fetch(`${API}/users`,                     
-                                  {body: JSON.stringify({email: profile.email}),
-                                  method: 'POST',
-                                  headers: {'Content-Type': 'application/json'}
-                                  })
+    let userExists = await fetch(`${API}/users`, {
+      body: JSON.stringify({ email: profile.email }),
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    })
+    
     let json = await userExists.json()
     let currentState = await Object.assign({}, this.state)
     await this.setState({...currentState, userInfo: json})
@@ -73,7 +74,7 @@ class App extends Component {
         accessToken: localStorage.getItem('accessToken'),
         profile: JSON.parse(localStorage.getItem('profile'))
       }, ()=>{
-        console.log(this.state)
+        console.log(this.state) // Do you need this?
       })
     }
   }
@@ -106,9 +107,15 @@ class App extends Component {
   }
 
   render() {
+    /*
+      I'd recommend taking your logic out of your JSX and moving it elsewhere in your code.
+      This is to keep logic and view separate and (hopefully) make it more readable.
+    */
+    const noUserId = this.state.accessToken && !this.state.userInfo.id
+    const loggedIn = this.state.accessToken && this.state.userInfo.id
+    
     return (
       <div className="App">
-      {/* header is essentially the nav, it doesn't actually have to be a header, . . . .*/}
       <Header
       lock={this.lock}
       accessToken={this.state.accessToken}
@@ -116,13 +123,16 @@ class App extends Component {
       logoutClick={this.logout.bind(this)}
       loginClick={this.showModal.bind(this)}
       />
-      {this.state.accessToken && !this.state.userInfo.id ? <Spinner checkForUser={this.checkForUser} /> : null}
-      {this.state.accessToken && this.state.userInfo.id ? this.renderDash() :
-      <Landing loginClick={this.showModal}
-                lock={this.lock}
-                accessToken={this.state.accessToken}
-                profile={this.state.profile}
-                />
+
+      { noUserId ? <Spinner checkForUser={this.checkForUser} /> : null }
+      { 
+        loggedIn ? 
+        this.renderDash() :
+        <Landing loginClick={this.showModal}
+                 lock={this.lock}
+                 accessToken={this.state.accessToken}
+                 profile={this.state.profile}
+                 />
       }
       </div>
     );
