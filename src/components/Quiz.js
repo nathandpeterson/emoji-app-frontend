@@ -86,7 +86,7 @@ class Quiz extends Component {
 
   correctLetterAnimation = () => {
     let tada = 'tada'
-    return tada
+    return tada // ?????? lol, what is this!
   }
 
   renderWin = () => (
