@@ -2,6 +2,15 @@ import React from 'react'
 import {Button} from 'react-materialize'
 
 const keyHover = (e) => {
+  /* 
+    With a front-end framework you typically want to let the framework do
+    all of the DOM manipulation. In this case, you're manually changing a number of
+    styles and settings.
+    
+    First, for any CSS changes I would tie them to a class as opposed to dynamically
+    setting them. Second, I would create stand alone functions that return a new
+    set of classes.
+  */
   let hoverTarget = document.querySelector(`#letter-${e.target.innerHTML}`)
   hoverTarget.style.backgroundColor = 'white'
   hoverTarget.style.color = '#2EC4B6'
@@ -34,11 +43,10 @@ const removeAnimationClass = (letter) => {
 
 const Key = ({letter, word, gameplay, remaining}) => {
   const handleClick = (e) => {
-  if(e.target.innerHTML === remaining[0]){
+    if(e.target.innerHTML !== remaining[0]) return wrongLetter(letter, handleClick)
     gameplay()
   }
-  else return wrongLetter(letter, handleClick)
-  }
+  
   return renderKey(letter, handleClick)
 }
 
