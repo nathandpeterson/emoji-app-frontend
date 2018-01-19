@@ -9,6 +9,7 @@ Toddlers are fascinated by mobile devices before they can even speak. Word Rumpu
 ![screenshot](emoji1.png)
 ![screenshot](emoji2.png)
 
+
 ### Gameplay:
 * Users can collect emojis by spelling them correctly on a keyboard of random letters
 * Correct and incorrect answers are indicated by animations
