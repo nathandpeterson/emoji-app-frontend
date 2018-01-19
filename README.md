@@ -4,6 +4,8 @@
 > (Galvanize Q3 group project)
 > Contributers: Nathan Peterson, Lena Venable, Kyle Braden
 
+# Demo at [https://wordrumpus.surge.sh](https://wordrumpus.surge.sh)
+
 Toddlers are fascinated by mobile devices before they can even speak. Word Rumpus builds on this natural curiosity to introduce children to letters in a playful way.
 
 ![screenshot](emoji1.png)
