@@ -9,11 +9,10 @@ class Landing extends Component {
     }
   }
   startButton = () => {
-    // this.props.loginClick()
+    this.props.loginClick()
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className='landing'>
         <Row>

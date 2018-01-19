@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import Keyboard from './components/Keyboard.js'
 import Auth0Lock from 'auth0-lock'
-import {Button} from 'react-materialize'
 import Header from './components/Header.js'
 import Landing from './components/Landing'
 import Dash from './components/Dash'
@@ -20,8 +18,8 @@ class App extends Component {
   }
 
   static defaultProps = {
-    clientId: 'oZl3hH2eA3ohIHz62cQqNgCh9DQUzrSq',
-    domain: 'emojiapi.auth0.com'
+    clientId: '0ykAU8xeiSH6vK3T0g3x6H2E7HcAnDGf',
+    domain: 'natperson.auth0.com'
   }
 
   componentDidMount = async () => {
@@ -118,9 +116,10 @@ class App extends Component {
       />
       {this.state.accessToken && !this.state.userInfo.id ? <Spinner checkForUser={this.checkForUser} /> : null}
       {this.state.accessToken && this.state.userInfo.id ? this.renderDash() :
-      <Landing loginClick={this.showModal}
+      <Landing loginClick={this.showModal.bind(this)}
                 lock={this.lock}
                 accessToken={this.state.accessToken}
+                logoutClick={this.logout.bind(this)}
                 profile={this.state.profile}
                 />
       }

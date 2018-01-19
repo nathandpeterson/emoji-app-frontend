@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import FadeIn from 'react-fade-in'
 const API = process.env.REACT_APP_API_URL
 
 class Emoji extends Component {

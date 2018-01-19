@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Chip, Col, Row, Card, CardPanel} from 'react-materialize'
+import {Col} from 'react-materialize'
 
 
 const ProfileAvatars = ({allEmoji, postAvatar}) => 

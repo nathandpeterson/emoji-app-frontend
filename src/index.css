@@ -11,13 +11,12 @@ body {
 }
 
 .emoji-med {
-  font-size: 7.5rem;
-  padding: 1rem;
+  font-size: 7rem;
+  margin-right: 30%;
 }
 
 .emoji-small {
   font-size: 3.5rem;
-  padding: 1rem;
 }
 
 .name-card {
@@ -30,9 +29,8 @@ body {
   animation: bounce 1s;
 }
 
-.game-container {
-  display: flex;
-  align-items: center;
+#quiz-emoji {
+  margin-right: 20%;
 }
 
 .quiz-letters {
@@ -88,7 +86,6 @@ body {
 
 .back {
   transform: rotateY(180deg);
- 
 }
 
 .profile {

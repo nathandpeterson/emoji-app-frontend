@@ -1,7 +1,5 @@
 import React from 'react'
-import FadeIn from 'react-fade-in'
 
-const happy = ['🌟', '✨', '⭐️', '⚡️', '💥', '🌈', '💫']
 
 const hooray = ['🌟', 'H','o','o','r','a','y','!','🌟']
 

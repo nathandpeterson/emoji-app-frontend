@@ -3,9 +3,9 @@ import Quiz from './Quiz'
 import Emoji from './Emoji'
 import Story from './Story'
 import Profile from './Profile'
-import {Card, CardTitle, Button} from 'react-materialize'
+import {Button} from 'react-materialize'
 import FadeIn from 'react-fade-in'
-import Spinner from './Spinner'
+
 const API = process.env.REACT_APP_API_URL
 
 class Dash extends Component {
