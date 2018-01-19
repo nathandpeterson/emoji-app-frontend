@@ -106,7 +106,7 @@ class Quiz extends Component {
                           status={this.state.status}/>
               <span className="quiz-letters">
                 {this.renderCorrectLetters().map((letter, i)=> {
-                  return <span key={i} className={`correct-letter animated ${this.correctLetterAnimation()}`}>{letter}</span>
+                  return <span key={i} className={`correct-letter`}>{letter}</span>
                 })}
               </span>
             </div>

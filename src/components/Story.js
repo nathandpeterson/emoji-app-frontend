@@ -57,7 +57,9 @@ randomize = (array) => {
         const goal = user_emojis.find(el => el.name === story[i].toLowerCase())
         if(goal)result.push(goal)
       }
-      if(result.length === 0) alert("ohnoes, you have no matching emojis!");  return result
+      if(result.length === 0) {
+        return result
+      }
     }
 
     storyPreparation = (allStories, userStories) => {
@@ -93,7 +95,6 @@ randomize = (array) => {
     const foundIt = this.matchElement(e, storyEmojis, 'image')
     storyEmojis.splice(storyEmojis.indexOf(foundIt), 1)
     if(storyEmojis.length === 0) {
-      console.log("success story")
       situation.userStories.push(situation.story.id)
       situation.story = this.storyPreparation(situation.allStories, situation.userStories)
       setTimeout(() => this.setState(situation), 1500)
